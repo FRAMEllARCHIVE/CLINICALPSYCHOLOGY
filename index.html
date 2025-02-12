@@ -40,14 +40,13 @@
         }
 
         .svg-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
             width: 90vw;
             max-width: 555px;
             display: flex;
             justify-content: center;
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .svg-container object {
@@ -75,27 +74,25 @@
 
         function switchVideo() {
             currentIndex = (currentIndex + 1) % videos.length;
-            
             nextVideo.src = videos[currentIndex];
-            nextVideo.load();  // Ensure video loads before playing
             nextVideo.play();
-
-            nextVideo.classList.add("active");
-            activeVideo.classList.remove("active");
-
-            // Swap active and next video references after transition
+            
             setTimeout(() => {
-                [activeVideo, nextVideo] = [nextVideo, activeVideo];
-            }, 2000);
+                nextVideo.classList.add("active");
+                activeVideo.classList.remove("active");
+
+                setTimeout(() => {
+                    let temp = activeVideo;
+                    activeVideo = nextVideo;
+                    nextVideo = temp;
+                }, 2000);
+            }, 1000);
         }
 
-        // Initialize first video
         activeVideo.src = videos[currentIndex];
-        activeVideo.load();
         activeVideo.play();
 
-        // Switch video when the active one ends
-        activeVideo.onended = switchVideo;
+        setInterval(switchVideo, 5000);
     </script>
 
 </body>
