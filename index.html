@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Background</title>
+    <title>Video Slideshow</title>
     <style>
         * {
             margin: 0;
@@ -12,30 +12,25 @@
         }
 
         body {
-            width: 100vw;
-            height: 100vh;
+            background: black;
             overflow: hidden;
-            position: relative;
         }
 
         .video-container {
-            width: 100vw;
-            height: 100vh;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            z-index: -1;
+            width: 100vw;
+            height: 100vh;
         }
 
         video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover; /* Ensures the video covers the entire viewport */
             position: absolute;
-            top: 0;
-            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
         }
 
         video.active {
@@ -44,30 +39,38 @@
     </style>
 </head>
 <body>
+
     <div class="video-container">
-        <video class="active" src="1.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="2.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="3.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="4.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="5.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="6.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="7.MPEG-4" type="video/mp4" autoplay muted loop></video>
-        <video src="8.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video id="video1" class="active" autoplay loop muted></video>
+        <video id="video2" autoplay loop muted></video>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const videos = document.querySelectorAll("video");
-            let currentIndex = 0;
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "4.mp4"];
+        let currentIndex = 0;
+        let activeVideo = document.getElementById("video1");
+        let nextVideo = document.getElementById("video2");
 
-            function cycleVideos() {
-                videos.forEach(video => video.classList.remove("active"));
-                currentIndex = (currentIndex + 1) % videos.length;
-                videos[currentIndex].classList.add("active");
-            }
+        function switchVideo() {
+            currentIndex = (currentIndex + 1) % videos.length;
+            nextVideo.src = videos[currentIndex];
+            nextVideo.classList.add("active");
+            activeVideo.classList.remove("active");
 
-            setInterval(cycleVideos, 5000); // Switch videos every 5 seconds
-        });
+            // Swap roles after transition
+            setTimeout(() => {
+                let temp = activeVideo;
+                activeVideo = nextVideo;
+                nextVideo = temp;
+            }, 1500); // Match transition time
+        }
+
+        // Start playing first video
+        activeVideo.src = videos[currentIndex];
+
+        // Switch videos every 10 seconds
+        setInterval(switchVideo, 10000);
     </script>
+
 </body>
 </html>
