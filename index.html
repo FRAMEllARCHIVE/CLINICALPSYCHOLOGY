@@ -44,52 +44,66 @@
             top: 80%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opcaity: 0.8;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
     <div class="video-container">
-        <video id="video1" class="active" autoplay muted playsinline></video>
+        <video id="video0" class="active" autoplay muted playsinline></video>
+        <video id="video1" autoplay muted playsinline></video>
         <video id="video2" autoplay muted playsinline></video>
+        <video id="video3" autoplay muted playsinline></video>
+        <video id="video4" autoplay muted playsinline></video>
     </div>
 
     <svg width="222" height="150" xmlns="http://www.w3.org/2000/svg">
-  <text x="10" y="50" font-family="Helvetica" font-size="42" font-weight="bold" fill="white" letter-spacing="1">
-    CLINICAL
-  </text>
-  <text x="10" y="80" font-family="Helvetica" font-size="30" font-weight="lighter" fill="white">
-    PSYCHOLOGY
-  </text>
-</svg>
+        <text x="10" y="50" font-family="Helvetica" font-size="42" font-weight="bold" fill="white" letter-spacing="1">
+            CLINICAL
+        </text>
+        <text x="10" y="80" font-family="Helvetica" font-size="30" font-weight="lighter" fill="white">
+            PSYCHOLOGY
+        </text>
+    </svg>
 
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4"];
+        const videoSources = ["1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4"];
+        const videos = document.querySelectorAll("video");
+
         let currentIndex = 0;
-        let activeVideo = document.getElementById("video1");
-        let nextVideo = document.getElementById("video2");
+
+        // Preload all videos and set their dimensions
+        videoSources.forEach((src, index) => {
+            let video = videos[index];
+            video.src = src;
+            video.load(); // Preload the video
+
+            video.onloadedmetadata = () => {
+                // Adjust dimensions if the video is portrait
+                if (video.videoHeight > video.videoWidth) {
+                    video.style.width = "auto";
+                    video.style.height = "100%";
+                } else {
+                    video.style.width = "100%";
+                    video.style.height = "100%";
+                }
+            };
+        });
 
         function switchVideo() {
-            currentIndex = (currentIndex + 1) % videos.length;
-            nextVideo.src = videos[currentIndex];
-            nextVideo.play();
-            
-            setTimeout(() => {
-                nextVideo.classList.add("active");
-                activeVideo.classList.remove("active");
+            let currentVideo = videos[currentIndex];
+            currentVideo.classList.remove("active");
 
-                setTimeout(() => {
-                    let temp = activeVideo;
-                    activeVideo = nextVideo;
-                    nextVideo = temp;
-                }, 2000);
-            }, 1000);
+            currentIndex = (currentIndex + 1) % videos.length;
+            let nextVideo = videos[currentIndex];
+
+            nextVideo.classList.add("active");
+            nextVideo.play();
         }
 
-        activeVideo.src = videos[currentIndex];
-        activeVideo.play();
-
+        // Start first video
+        videos[0].play();
         setInterval(switchVideo, 5000);
     </script>
 
