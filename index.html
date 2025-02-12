@@ -14,6 +14,8 @@
         body {
             background: black;
             overflow: hidden;
+            position: relative;
+            height: 100vh;
         }
 
         .video-container {
@@ -36,6 +38,13 @@
         video.active {
             opacity: 1;
         }
+
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body>
@@ -44,6 +53,16 @@
         <video id="video1" class="active" autoplay muted playsinline></video>
         <video id="video2" autoplay muted playsinline></video>
     </div>
+
+    <svg width="350" height="150" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="black"/>
+        <text x="10" y="50" font-family="Helvetica" font-size="42" font-weight="bold" fill="white" letter-spacing="1">
+            CLINICAL
+        </text>
+        <text x="10" y="90" font-family="Helvetica" font-size="30" font-weight="lighter" fill="white">
+            PSYCHOLOGY
+        </text>
+    </svg>
 
     <script>
         const videos = ["1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4"];
