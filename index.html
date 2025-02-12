@@ -46,6 +46,43 @@
             transform: translate(-50%, -50%);
             opcaity: 0.8;
         }
+
+        .icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    z-index: 2;
+}
+
+.icon {
+    text-decoration: none;
+    outline: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background 0.3s ease-in-out;
+}
+
+.icon:focus,
+.icon:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.icon i {
+    font-size: 28px;
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -67,6 +104,25 @@
     NEIL CLAYTON
   </text>
 </svg>
+
+<div class="container">
+    <div class="bottom-buttons">
+        <div class="icon-row">
+            <a href="https://api.whatsapp.com/send/?phone=27814446461" target="_blank" class="icon" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <a href="mailto:info@psychologistneil.co.za" class="icon" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+
+            <a href="info.html" target="_blank" class="icon" aria-label="Info">
+                <i class="fas fa-info-circle"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
     
 
     <script>
