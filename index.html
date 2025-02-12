@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Background</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-container {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Ensures the video covers the entire viewport */
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        video.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video class="active" src="1.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="2.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="3.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="4.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="5.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="6.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="7.MPEG-4" type="video/mp4" autoplay muted loop></video>
+        <video src="8.MPEG-4" type="video/mp4" autoplay muted loop></video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const videos = document.querySelectorAll("video");
+            let currentIndex = 0;
+
+            function cycleVideos() {
+                videos.forEach(video => video.classList.remove("active"));
+                currentIndex = (currentIndex + 1) % videos.length;
+                videos[currentIndex].classList.add("active");
+            }
+
+            setInterval(cycleVideos, 5000); // Switch videos every 5 seconds
+        });
+    </script>
+</body>
+</html>
