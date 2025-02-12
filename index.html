@@ -49,12 +49,16 @@
             opcaity: 0.8;
         }
 
-        .icon-row {
+ .icon-row {
     display: flex;
     justify-content: center;
     gap: 15px;
     width: 100%;
-    z-index: 2;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center the icons horizontally */
+    z-index: 9999; /* Ensure the icons are above other elements */
 }
 
 .icon {
