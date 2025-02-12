@@ -46,7 +46,7 @@
     </div>
 
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "4.mp4"];
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "4.mp4", "5.mp4"];
         let currentIndex = 0;
         let activeVideo = document.getElementById("video1");
         let nextVideo = document.getElementById("video2");
@@ -54,30 +54,24 @@
         function switchVideo() {
             currentIndex = (currentIndex + 1) % videos.length;
             nextVideo.src = videos[currentIndex];
-
-            // Start playing the new video before fading
             nextVideo.play();
             
-            // Wait 1 second before fading to allow buffering
             setTimeout(() => {
                 nextVideo.classList.add("active");
                 activeVideo.classList.remove("active");
 
-                // Swap roles after transition
                 setTimeout(() => {
                     let temp = activeVideo;
                     activeVideo = nextVideo;
                     nextVideo = temp;
-                }, 2000); // Match fade duration
-            }, 1000); // Buffer delay before fade starts
+                }, 2000);
+            }, 1000);
         }
 
-        // Start first video
         activeVideo.src = videos[currentIndex];
         activeVideo.play();
 
-        // Switch videos every 6 seconds
-        setInterval(switchVideo, 6000);
+        setInterval(switchVideo, 5000);
     </script>
 
 </body>
