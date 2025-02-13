@@ -156,7 +156,6 @@
             color: inherit;
         }
 
-
 .logo-container {
     position: fixed;
     top: 0;
@@ -173,15 +172,14 @@
 
 .logo-container img {
     width: 222px;
-    opacity: 0;
-    animation: fadeInLogo 1s ease-in-out 1s forwards, fadeOutLogo 2s ease-in-out 4s forwards;
+    animation: fadeInOutLogo 6s ease-in-out forwards;
 }
 
 @keyframes fadeOutContainer {
     0% {
         opacity: 1;
     }
-    80% {
+    83.33% {
         opacity: 1;
     }
     100% {
@@ -189,17 +187,14 @@
     }
 }
 
-@keyframes fadeInLogo {
+@keyframes fadeInOutLogo {
     0% {
         opacity: 0;
     }
-    100% {
+    16.67% {
         opacity: 1;
     }
-}
-
-@keyframes fadeOutLogo {
-    0% {
+    83.33% {
         opacity: 1;
     }
     100% {
