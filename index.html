@@ -245,50 +245,49 @@
         </div>
     </div>
 
-<script>
-    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-    let currentIndex = 0;
-    let activeVideo = document.getElementById("video1");
-    let nextVideo = document.getElementById("video2");
+    
+    <script>
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+        let currentIndex = 0;
+        let activeVideo = document.getElementById("video1");
+        let nextVideo = document.getElementById("video2");
 
-    activeVideo.src = videos[currentIndex];
-    activeVideo.play();
+        activeVideo.src = videos[currentIndex];
+        activeVideo.play();
 
-    function preloadNextVideo() {
-        const nextIndex = (currentIndex + 1) % videos.length;
-        nextVideo.src = videos[nextIndex];
+        function preloadNextVideo() {
+            const nextIndex = (currentIndex + 1) % videos.length;
+            nextVideo.src = videos[nextIndex];
 
-        nextVideo.oncanplaythrough = () => {
-            console.log(`Preloaded: ${videos[nextIndex]}`);
-        };
+            nextVideo.oncanplaythrough = () => {
+                console.log(Preloaded: ${videos[nextIndex]});
+            };
 
-        nextVideo.load();
-    }
+            nextVideo.load();
+        }
 
-    function switchVideo() {
-        nextVideo.style.transition = "opacity 2s ease-in-out";
-        activeVideo.style.transition = "opacity 2s ease-in-out";
+        function switchVideo() {
+            activeVideo.style.opacity = 0;
+            nextVideo.style.opacity = 1;
 
-        activeVideo.style.opacity = 0;
-        nextVideo.style.opacity = 1;
+            setTimeout(() => {
+                [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-        setTimeout(() => {
-            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+                nextVideo.classList.remove("active");
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
 
-            nextVideo.classList.remove("active");
-            nextVideo.pause();
-            nextVideo.currentTime = 0;
+                currentIndex = (currentIndex + 1) % videos.length;
 
-            currentIndex = (currentIndex + 1) % videos.length;
+                preloadNextVideo();
+            }, 2222);
+        }
 
-            preloadNextVideo();
-        }, 2000);  // Match the transition time
-    }
+        preloadNextVideo();
 
-    preloadNextVideo();
-
-    setInterval(switchVideo, 5000);
-</script>
+        setInterval(switchVideo, 5000);
+    
+    </script>
 
 </body>
 </html>
