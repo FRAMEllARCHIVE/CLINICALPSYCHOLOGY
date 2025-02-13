@@ -79,7 +79,7 @@
             font-weight: lighter;
             letter-spacing: 1.5px;
             color: white;
-            opacity: 0.6;
+            opacity: 0.4;
         }
 
         .book-here {
@@ -194,32 +194,49 @@
     </div>
 
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-        let currentIndex = 0;
-        let activeVideo = document.getElementById("video1");
-        let nextVideo = document.getElementById("video2");
+        
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+let currentIndex = 0;
+const activeVideo = document.getElementById("video1");
+const nextVideo = document.getElementById("video2");
 
-        function switchVideo() {
+// Preload the first video
+activeVideo.src = videos[currentIndex];
+activeVideo.play();
+
+function preloadNextVideo() {
+    const nextIndex = (currentIndex + 1) % videos.length;
+    nextVideo.src = videos[nextIndex];
+    nextVideo.load();  // Ensures the video is ready to play
+}
+
+function switchVideo() {
+    nextVideo.play().then(() => {
+        nextVideo.classList.add("active");
+        activeVideo.classList.remove("active");
+
+        setTimeout(() => {
+            // Swap roles
+            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+
+            // Hide the inactive video and stop it
+            nextVideo.classList.remove("active");
+            nextVideo.pause();
+            nextVideo.currentTime = 0;
+
+            // Update index and preload the next video
             currentIndex = (currentIndex + 1) % videos.length;
-            nextVideo.src = videos[currentIndex];
-            nextVideo.play();
-            
-            setTimeout(() => {
-                nextVideo.classList.add("active");
-                activeVideo.classList.remove("active");
+            preloadNextVideo();
+        }, 2000);
+    }).catch(err => {
+        console.error("Video playback error:", err);
+    });
+}
 
-                setTimeout(() => {
-                    let temp = activeVideo;
-                    activeVideo = nextVideo;
-                    nextVideo = temp;
-                }, 2000);
-            }, 1000);
-        }
-
-        activeVideo.src = videos[currentIndex];
-        activeVideo.play();
-
-        setInterval(switchVideo, 5000);
+// Preload the next video before switching
+preloadNextVideo();
+setInterval(switchVideo, 5000);
+    
     </script>
 
 </body>
