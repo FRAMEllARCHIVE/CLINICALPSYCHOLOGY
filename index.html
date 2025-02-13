@@ -83,22 +83,34 @@
             opacity: 0.9;
         }
 
-        .book-here {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            font-family: 'Moderna', sans-serif;
-            font-size: 40px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            width: 80%;
-            max-width: 800px;
-            opacity: 0.5;
-            color: white;
-        }
+.book-here {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Moderna', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 80%;
+    max-width: 800px;
+    opacity: 0.5;
+    color: white;
+    animation: pulse 2.2s infinite ease-in-out;
+}
 
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
         .icon-row {
             display: flex;
             justify-content: space-between;
