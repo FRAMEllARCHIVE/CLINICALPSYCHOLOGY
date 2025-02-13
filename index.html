@@ -245,46 +245,49 @@
         </div>
     </div>
 
+
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-        let currentIndex = 0;
-        let activeVideo = document.getElementById("video1");
-        let nextVideo = document.getElementById("video2");
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+    let currentIndex = 0;
+    let activeVideo = document.getElementById("video1");
+    let nextVideo = document.getElementById("video2");
 
-        activeVideo.src = videos[currentIndex];
-        activeVideo.play();
+    activeVideo.src = videos[currentIndex];
+    activeVideo.play();
 
-        function preloadNextVideo() {
-            const nextIndex = (currentIndex + 1) % videos.length;
-            nextVideo.src = videos[nextIndex];
+    function preloadNextVideo() {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        nextVideo.src = videos[nextIndex];
 
-            nextVideo.oncanplaythrough = () => {
-                console.log(`Preloaded: ${videos[nextIndex]}`);
-            };
+        nextVideo.oncanplaythrough = () => {
+            console.log(`Preloaded: ${videos[nextIndex]}`);
+        };
 
-            nextVideo.load();
-        }
+        nextVideo.load();
+    }
 
-        function switchVideo() {
-            activeVideo.style.opacity = 0;
-            nextVideo.style.opacity = 1;
+    function switchVideo() {
+        activeVideo.style.transition = "opacity 2s ease-in-out";
+        nextVideo.style.transition = "opacity 2s ease-in-out";
 
-            setTimeout(() => {
-                [activeVideo, nextVideo] = [nextVideo, activeVideo];
+        activeVideo.style.opacity = 0;
+        nextVideo.style.opacity = 1;
 
-                nextVideo.classList.remove("active");
-                nextVideo.pause();
-                nextVideo.currentTime = 0;
+        setTimeout(() => {
+            [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-                currentIndex = (currentIndex + 1) % videos.length;
+            nextVideo.classList.remove("active");
+            nextVideo.pause();
+            nextVideo.currentTime = 0;
 
-                preloadNextVideo();
-            }, 2222);
-        }
+            currentIndex = (currentIndex + 1) % videos.length;
 
-        preloadNextVideo();
+            preloadNextVideo();
+        }, 2000); // Shortened transition time slightly for smoother fade
+    }
 
-        setInterval(switchVideo, 5000);
+    activeVideo.onended = switchVideo; // Ensure looping correctly
+    preloadNextVideo();
     </script>
 
 </body>
