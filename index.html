@@ -213,32 +213,24 @@
         }
 
         function switchVideo() {
-            // Fade out the current active video and fade in the next video
             activeVideo.style.opacity = 0;
             nextVideo.style.opacity = 1;
 
-            // After the fade-out completes, swap the videos
             setTimeout(() => {
-                // Swap active and next videos
                 [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-                // Reset the next video after the transition
                 nextVideo.classList.remove("active");
                 nextVideo.pause();
                 nextVideo.currentTime = 0;
 
-                // Update currentIndex to point to the next video
                 currentIndex = (currentIndex + 1) % videos.length;
 
-                // Preload the next video for smoother transition
                 preloadNextVideo();
-            }, 2000); // Set the delay to match the video fade-out duration
+            }, 2222);
         }
 
-        // Preload the next video initially
         preloadNextVideo();
 
-        // Set interval for video switching
         setInterval(switchVideo, 5000);
     </script>
 
