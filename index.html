@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +28,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            overflow: hidden;
         }
 
         video {
@@ -102,9 +104,11 @@
             0% {
                 opacity: 0.5;
             }
+
             50% {
                 opacity: 0.8;
             }
+
             100% {
                 opacity: 0.5;
             }
@@ -149,6 +153,7 @@
 
         .icon:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
 
         .icon i {
@@ -180,12 +185,30 @@
         .logo-container img.show {
             opacity: 1;
         }
+
+        @media (max-width: 768px) {
+            .text-container h1 {
+                font-size: 30px;
+            }
+
+            .text-container h2 {
+                font-size: 22px;
+            }
+
+            .book-here {
+                font-size: 28px;
+            }
+
+            .icon-row {
+                width: 160px;
+            }
+        }
     </style>
 </head>
-<body>
 
+<body>
     <div class="logo-container" id="logo-container">
-        <img src="logoneil.png" alt="Logo" id="logo">
+        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
     </div>
 
     <div class="video-container">
@@ -209,11 +232,9 @@
                 <a href="https://api.whatsapp.com/send/?phone=27814446461" target="_blank" class="icon" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-
                 <a href="mailto:info@psychologistneil.co.za" class="icon" aria-label="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-
                 <a href="info.html" target="_blank" class="icon" aria-label="Info">
                     <i class="fas fa-info-circle"></i>
                 </a>
@@ -222,30 +243,23 @@
     </div>
 
     <script>
-        
-        //logo
-        
+        // Logo fade-out on page load
         const logoContainer = document.getElementById('logo-container');
         const logo = document.getElementById('logo');
 
         window.addEventListener('load', () => {
             logo.classList.add('show');
-            
             setTimeout(() => {
                 logoContainer.style.opacity = 0;
                 logo.style.opacity = 0;
-            }, 3333);
+            }, 4444);
         });
 
-        //video
-        
+        // Video handling (preload and switch)
         const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
         let currentIndex = 0;
         let activeVideo = document.getElementById("video1");
         let nextVideo = document.getElementById("video2");
-
-        activeVideo.src = videos[currentIndex];
-        activeVideo.play();
 
         function preloadNextVideo() {
             const nextIndex = (currentIndex + 1) % videos.length;
@@ -264,23 +278,25 @@
 
             setTimeout(() => {
                 [activeVideo, nextVideo] = [nextVideo, activeVideo];
-
-                nextVideo.classList.remove("active");
-                nextVideo.pause();
-                nextVideo.currentTime = 0;
-
+                activeVideo.classList.remove("active");
+                activeVideo.pause();
+                activeVideo.currentTime = 0;
                 currentIndex = (currentIndex + 1) % videos.length;
-
                 preloadNextVideo();
-            }, 2222);
+            }, 2000);
         }
+
+        activeVideo.src = videos[currentIndex];
+        activeVideo.play();
 
         preloadNextVideo();
 
+        // Change video every 5 seconds
         setInterval(switchVideo, 5000);
 
-        
+        // Video switch when current video ends
+        activeVideo.onended = switchVideo;
     </script>
-
 </body>
+
 </html>
