@@ -55,12 +55,9 @@
 
         .text-container h1,
         .text-container h2,
-        .text-container h3 {
-            margin: 0;
-            padding: 0;
-            display: inline-block;
-            width: 100%;
-            text-align: center;
+        .text-container h3,
+        .book-here {
+            color: #3399FF;
         }
 
         .text-container h1 {
@@ -68,12 +65,14 @@
             font-size: 42px;
             font-weight: bold;
             letter-spacing: 1px;
+            opacity: 0.8;
         }
 
         .text-container h2 {
             font-family: 'Helvetica', sans-serif;
             font-size: 30px;
             font-weight: lighter;
+            opacity: 0.65;
         }
 
         .text-container h3 {
@@ -89,7 +88,6 @@
             top: 10%;
             left: 50%;
             transform: translateX(-50%);
-            color: white;
             text-align: center;
             font-family: 'Moderna', sans-serif;
             font-size: 40px;
@@ -97,6 +95,7 @@
             letter-spacing: 1px;
             width: 80%;
             max-width: 800px;
+            opacity: 0.9;
         }
 
         .icon-row {
@@ -122,6 +121,7 @@
             height: 50px;
             border-radius: 50%;
             transition: background 0.3s ease-in-out;
+            color: #3399FF;
         }
 
         .icon:focus,
@@ -136,7 +136,8 @@
 
         .icon i {
             font-size: 28px;
-            color: white;
+            color: inherit;
+            opacity: 0.4;
         }
     </style>
 </head>
