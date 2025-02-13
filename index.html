@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neil Psychologist</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&family=Garamond&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&family=Garamond&family=Moderna&display=swap" rel="stylesheet"> <!-- Added Moderna font -->
     <style>
         * {
             margin: 0;
@@ -84,6 +84,21 @@
             opacity: 0.5;
         }
 
+        .book-here {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-family: 'Moderna', sans-serif;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 80%;
+            max-width: 800px;
+        }
+
         .icon-row {
             display: flex;
             justify-content: center;
@@ -131,6 +146,11 @@
     <div class="video-container">
         <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
         <video id="video2" autoplay muted playsinline preload="auto"></video>
+    </div>
+
+    <!-- Added BOOK HERE section -->
+    <div class="book-here">
+        BOOK HERE
     </div>
 
     <div class="text-container">
