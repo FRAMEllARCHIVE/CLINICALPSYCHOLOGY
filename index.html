@@ -245,8 +245,7 @@
         </div>
     </div>
 
-
-    <script>
+<script>
     const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
     let currentIndex = 0;
     let activeVideo = document.getElementById("video1");
@@ -267,8 +266,8 @@
     }
 
     function switchVideo() {
-        activeVideo.style.transition = "opacity 2s ease-in-out";
         nextVideo.style.transition = "opacity 2s ease-in-out";
+        activeVideo.style.transition = "opacity 2s ease-in-out";
 
         activeVideo.style.opacity = 0;
         nextVideo.style.opacity = 1;
@@ -283,12 +282,13 @@
             currentIndex = (currentIndex + 1) % videos.length;
 
             preloadNextVideo();
-        }, 2000); // Shortened transition time slightly for smoother fade
+        }, 2000);  // Match the transition time
     }
 
-    activeVideo.onended = switchVideo; // Ensure looping correctly
     preloadNextVideo();
-    </script>
+
+    setInterval(switchVideo, 5000);
+</script>
 
 </body>
 </html>
