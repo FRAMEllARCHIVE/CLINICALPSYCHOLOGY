@@ -83,39 +83,38 @@
         }
 
         .book-here {
-    position: fixed;
-    top: 92px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-family: 'Helvetica', san-serif;
-    font-size: 34px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    width: 80%;
-    max-width: 800px;
-    animation: pulse 6.2s infinite ease-in-out;
-    transition: opacity 0.3s ease, box-shadow 0.3s ease;
-}
+            position: fixed;
+            top: 92px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 80%;
+            max-width: 800px;
+            animation: pulse 6.2s infinite ease-in-out;
+            transition: opacity 0.3s ease, box-shadow 0.3s ease;
+        }
 
-@keyframes pulse {
-    0% {
-        opacity: 0.5;
-    }
-    50% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0.5;
-    }
-}
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
 
+        .book-here:hover {
+            opacity: 1;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
 
-.book-here:hover {
-    opacity: 1;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-}
-        
         .icon-row {
             display: flex;
             justify-content: space-between;
@@ -192,62 +191,56 @@
             </div>
         </div>
     </div>
-<script>const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-let currentIndex = 0;
-let activeVideo = document.getElementById("video1");
-let nextVideo = document.getElementById("video2");
 
-activeVideo.src = videos[currentIndex];
-activeVideo.play();
+    <script>
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+        let currentIndex = 0;
+        let activeVideo = document.getElementById("video1");
+        let nextVideo = document.getElementById("video2");
 
-function preloadNextVideo() {
-    const nextIndex = (currentIndex + 1) % videos.length;
-    nextVideo.src = videos[nextIndex];
+        activeVideo.src = videos[currentIndex];
+        activeVideo.play();
 
-    nextVideo.oncanplaythrough = () => {
-        console.log(`Preloaded: ${videos[nextIndex]}`);
-    };
+        function preloadNextVideo() {
+            const nextIndex = (currentIndex + 1) % videos.length;
+            nextVideo.src = videos[nextIndex];
 
-    nextVideo.load();
-}
+            nextVideo.oncanplaythrough = () => {
+                console.log(`Preloaded: ${videos[nextIndex]}`);
+            };
 
-function switchVideo() {
-    // Fade out the active video
-    activeVideo.style.opacity = 0;
+            nextVideo.load();
+        }
 
-    // After the fade-out completes, switch to the next video
-    setTimeout(() => {
-        nextVideo.play().then(() => {
-            // Fade in the next video
-            nextVideo.classList.add("active");
+        function switchVideo() {
+            // Fade out the current active video and fade in the next video
+            activeVideo.style.opacity = 0;
             nextVideo.style.opacity = 1;
-            activeVideo.classList.remove("active");
 
-            // Swap the videos
-            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+            // After the fade-out completes, swap the videos
+            setTimeout(() => {
+                // Swap active and next videos
+                [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-            // Reset the next video after the transition
-            nextVideo.classList.remove("active");
-            nextVideo.pause();
-            nextVideo.currentTime = 0;
+                // Reset the next video after the transition
+                nextVideo.classList.remove("active");
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
 
-            // Update currentIndex to point to the next video
-            currentIndex = (currentIndex + 1) % videos.length;
+                // Update currentIndex to point to the next video
+                currentIndex = (currentIndex + 1) % videos.length;
 
-            // Preload the next video for a smoother transition
-            preloadNextVideo();
-        }).catch(err => {
-            console.error("Video playback error:", err);
-        });
-    }, 2000); // Set the delay to match the video fade-out duration
-}
+                // Preload the next video for smoother transition
+                preloadNextVideo();
+            }, 2000); // Set the delay to match the video fade-out duration
+        }
 
-// Preload the next video initially
-preloadNextVideo();
+        // Preload the next video initially
+        preloadNextVideo();
 
-// Set interval for video switching
-setInterval(switchVideo, 5000);
-</script>
+        // Set interval for video switching
+        setInterval(switchVideo, 5000);
+    </script>
 
 </body>
 </html>
