@@ -83,7 +83,7 @@
             opacity: 0.9;
         }
 
-.book-here {
+        .book-here {
     position: absolute;
     top: 10%;
     left: 50%;
@@ -97,7 +97,8 @@
     max-width: 800px;
     opacity: 0.5;
     color: white;
-    animation: pulse 2.2s infinite ease-in-out;
+    animation: pulse 3.3s infinite ease-in-out;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes pulse {
@@ -111,6 +112,12 @@
         opacity: 0.5;
     }
 }
+
+.book-here:hover {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+        
         .icon-row {
             display: flex;
             justify-content: space-between;
