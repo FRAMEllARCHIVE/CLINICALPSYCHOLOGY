@@ -192,52 +192,57 @@
             </div>
         </div>
     </div>
+<script>
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+    let currentIndex = 0;
+    let activeVideo = document.getElementById("video1");
+    let nextVideo = document.getElementById("video2");
 
-    <script>
+    activeVideo.src = videos[currentIndex];
+    activeVideo.play();
 
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-let currentIndex = 0;
-let activeVideo = document.getElementById("video1");
-let nextVideo = document.getElementById("video2");
+    function preloadNextVideo() {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        nextVideo.src = videos[nextIndex];
 
-activeVideo.src = videos[currentIndex];
-activeVideo.play();
+        nextVideo.oncanplaythrough = () => {
+            console.log(`Preloaded: ${videos[nextIndex]}`);
+        };
 
-function preloadNextVideo() {
-    const nextIndex = (currentIndex + 1) % videos.length;
-    nextVideo.src = videos[nextIndex];
+        nextVideo.load();
+    }
 
-    nextVideo.oncanplaythrough = () => {
-        console.log(`Preloaded: ${videos[nextIndex]}`);
-    };
-    nextVideo.load();
-}
+    function switchVideo() {
+        nextVideo.play().then(() => {
+            nextVideo.classList.add("active");
+            activeVideo.classList.remove("active");
 
-function switchVideo() {
-    nextVideo.play().then(() => {
-        nextVideo.classList.add("active");
-        activeVideo.classList.remove("active");
+            // Ensure the video switch happens only after the new video has started playing
+            setTimeout(() => {
+                [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-        setTimeout(() => {
-            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+                // Reset the next video only when switching
+                nextVideo.classList.remove("active");
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
 
-            nextVideo.classList.remove("active");
-            nextVideo.pause();
-            nextVideo.currentTime = 0;
+                // Update currentIndex to point to the next video
+                currentIndex = (currentIndex + 1) % videos.length;
 
-            currentIndex = (currentIndex + 1) % videos.length;
+                // Preload the next video for a smoother transition
+                preloadNextVideo();
+            }, 2000);
+        }).catch(err => {
+            console.error("Video playback error:", err);
+        });
+    }
 
-            preloadNextVideo();
-        }, 2000);
-    }).catch(err => {
-        console.error("Video playback error:", err);
-    });
-}
-
-preloadNextVideo();
-setInterval(switchVideo, 5000);
-        
-    </script>
+    // Preload the next video initially
+    preloadNextVideo();
+    
+    // Set interval for video switching
+    setInterval(switchVideo, 5000);
+</script>
 
 </body>
 </html>
