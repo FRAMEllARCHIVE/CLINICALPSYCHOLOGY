@@ -440,6 +440,62 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const openModal = document.getElementById("openModal");
+    const modal = document.getElementById("bookingModal");
+
+    openModal.addEventListener("click", function () {
+        const audioSnippet = new Audio("example.mp3");
+        audioSnippet.currentTime = 1.44;
+        audioSnippet.volume = 0;
+        audioSnippet.play();
+
+        let fadeInInterval = setInterval(function () {
+            if (audioSnippet.volume < 1) {
+                audioSnippet.volume += 0.1;
+            } else {
+                clearInterval(fadeInInterval);
+            }
+        }, 100);
+
+        setTimeout(function () {
+            let fadeOutInterval = setInterval(function () {
+                if (audioSnippet.volume > 0) {
+                    audioSnippet.volume -= 0.1;
+                } else {
+                    clearInterval(fadeOutInterval);
+                    audioSnippet.pause();
+                    audioSnippet.currentTime = 0;
+                }
+            }, 100);
+        }, 2000);
+
+        modal.style.display = "flex";
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const mapFrame = document.getElementById("mapFrame");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    mapFrame.onload = function () {
+        loadingSpinner.style.display = "none";
+    };
+
+    mapFrame.onerror = function () {
+        loadingSpinner.innerHTML = "Failed to load map. Please try again later.";
+        loadingSpinner.style.color = "red";
+    };
+});
+        
+
     </script>
 
 </body>
