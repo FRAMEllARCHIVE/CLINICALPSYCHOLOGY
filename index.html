@@ -155,6 +155,27 @@
             font-size: 28px;
             color: inherit;
         }
+
+                .logo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .logo-container img {
+            width: 250px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
     </style>
 </head>
 <body>
