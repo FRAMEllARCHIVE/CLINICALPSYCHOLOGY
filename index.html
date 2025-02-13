@@ -340,7 +340,7 @@
 
     
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+     const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
         let currentIndex = 0;
         let activeVideo = document.getElementById("video1");
         let nextVideo = document.getElementById("video2");
@@ -353,7 +353,7 @@
             nextVideo.src = videos[nextIndex];
 
             nextVideo.oncanplaythrough = () => {
-                console.log(Preloaded: ${videos[nextIndex]});
+                console.log(`Preloaded: ${videos[nextIndex]}`);
             };
 
             nextVideo.load();
@@ -373,13 +373,12 @@
                 currentIndex = (currentIndex + 1) % videos.length;
 
                 preloadNextVideo();
-            }, 2000);
+            }, 2222);
         }
 
         preloadNextVideo();
 
         setInterval(switchVideo, 5000);
-
         
     //modal
 
