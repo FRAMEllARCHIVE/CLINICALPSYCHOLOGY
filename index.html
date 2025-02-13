@@ -194,11 +194,10 @@
     </div>
 
     <script>
-        
-    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
 let currentIndex = 0;
-const activeVideo = document.getElementById("video1");
-const nextVideo = document.getElementById("video2");
+let activeVideo = document.getElementById("video1");
+let nextVideo = document.getElementById("video2"); // Changed to let
 
 // Preload the first video
 activeVideo.src = videos[currentIndex];
@@ -207,7 +206,12 @@ activeVideo.play();
 function preloadNextVideo() {
     const nextIndex = (currentIndex + 1) % videos.length;
     nextVideo.src = videos[nextIndex];
-    nextVideo.load();  // Ensures the video is ready to play
+
+    // Ensure the video is loaded before switching
+    nextVideo.oncanplaythrough = () => {
+        console.log(`Preloaded: ${videos[nextIndex]}`);
+    };
+    nextVideo.load();
 }
 
 function switchVideo() {
@@ -236,7 +240,6 @@ function switchVideo() {
 // Preload the next video before switching
 preloadNextVideo();
 setInterval(switchVideo, 5000);
-    
     </script>
 
 </body>
