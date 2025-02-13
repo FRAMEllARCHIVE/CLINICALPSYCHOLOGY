@@ -222,6 +222,20 @@
     </div>
 
     <script>
+        
+        //logo
+        
+        const logoContainer = document.getElementById('logo-container');
+        const logo = document.getElementById('logo');
+
+        window.addEventListener('load', () => {
+            logo.classList.add('show');
+            
+            setTimeout(() => {
+                logoContainer.style.opacity = 0;
+                logo.style.opacity = 0;
+            }, 4444);
+        });
 
         //video
         
@@ -264,21 +278,6 @@
         preloadNextVideo();
 
         setInterval(switchVideo, 5000);
-
-
-        //logo
-        
-        const logoContainer = document.getElementById('logo-container');
-        const logo = document.getElementById('logo');
-
-        window.addEventListener('load', () => {
-            logo.classList.add('show');
-            
-            setTimeout(() => {
-                logoContainer.style.opacity = 0;
-                logo.style.opacity = 0;
-            }, 4444);
-        });
 
         
     </script>
