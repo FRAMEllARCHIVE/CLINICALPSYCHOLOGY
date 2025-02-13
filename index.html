@@ -155,27 +155,57 @@
             font-size: 28px;
             color: inherit;
         }
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    animation: fadeOutContainer 6s ease-in-out forwards;
+}
 
-                .logo-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            opacity: 1;
-            transition: opacity 1s ease-out;
-        }
+.logo-container img {
+    width: 250px;
+    opacity: 0;
+    animation: fadeInLogo 1s ease-in-out 1s forwards, fadeOutLogo 2s ease-in-out 5s forwards;
+}
 
-        .logo-container img {
-            width: 250px;
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-        }
+@keyframes fadeOutContainer {
+    0s {
+        opacity: 1;
+    }
+    4s {
+        opacity: 1;
+    }
+    6s {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInLogo {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutLogo {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
     </style>
 </head>
 <body>
