@@ -155,9 +155,44 @@
             font-size: 28px;
             color: inherit;
         }
+
+        /* New logo and white background container */
+        .logo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .logo-container img {
+            width: 250px; /* Adjust the logo size as needed */
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .logo-container.show {
+            opacity: 1;
+        }
+
+        .logo-container img.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Logo and white background container -->
+    <div class="logo-container" id="logo-container">
+        <img src="logoneil.png" alt="Logo" id="logo">
+    </div>
 
     <div class="video-container">
         <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
@@ -232,6 +267,22 @@
         preloadNextVideo();
 
         setInterval(switchVideo, 5000);
+
+        // Logo fade-in and fade-out
+        const logoContainer = document.getElementById('logo-container');
+        const logo = document.getElementById('logo');
+
+        // Fade in the logo and background when the page loads
+        window.addEventListener('load', () => {
+            logoContainer.classList.add('show');
+            logo.classList.add('show');
+            
+            // Fade out after 5 seconds
+            setTimeout(() => {
+                logoContainer.style.opacity = 0;
+                logo.style.opacity = 0;
+            }, 5000);
+        });
     </script>
 
 </body>
