@@ -390,7 +390,6 @@
         
 document.addEventListener("DOMContentLoaded", function () {
     const locationModal = document.getElementById("locationModal");
-    const closeLocationModal = document.getElementById("closeLocationModal");
     const mapFrame = document.getElementById("mapFrame");
     const locationAddress = document.getElementById("locationAddress");
     const appointmentBtn = document.getElementById("appointmentBtn");
@@ -421,44 +420,8 @@ if (location === "westville") {
         }
     });
 });
-
-    window.addEventListener("click", function (event) {
-        if (event.target === locationModal) {
-            locationModal.style.display = "none";
-        }
-    });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const bookingModal = document.getElementById("bookingModal");
-    const locationModal = document.getElementById("locationModal");
-
-    function closeModal(event, modal) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    window.addEventListener("click", function (event) {
-        closeModal(event, bookingModal);
-        closeModal(event, locationModal);
-    });
-});
- 
-document.addEventListener("DOMContentLoaded", function () {
-    const openModal = document.getElementById("openModal");
-    const modal = document.getElementById("bookingModal");
-
-    openModal.addEventListener("click", function () {
-        modal.style.display = "flex";
-    });
-
-    window.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const mapFrame = document.getElementById("mapFrame");
@@ -474,6 +437,26 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
+        document.addEventListener("DOMContentLoaded", function () {
+    const openModal = document.getElementById("openModal");
+    const bookingModal = document.getElementById("bookingModal");
+    const locationModal = document.getElementById("locationModal");
+
+    openModal.addEventListener("click", function () {
+        bookingModal.style.display = "flex";
+    });
+
+    function closeModal(event, modal) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    window.addEventListener("click", function (event) {
+        closeModal(event, bookingModal);
+        closeModal(event, locationModal);
+    });
+});
         
     </script>
 
