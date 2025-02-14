@@ -53,84 +53,57 @@
         <video id="video3" autoplay muted playsinline preload="auto"></video> <!-- Added 3rd video for a longer playlist -->
     </div>
 
+
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"]; // Video list
-        let currentIndex = 0;
-        let activeVideo = document.getElementById("video1");
-        let nextVideo = document.getElementById("video2");
-        let preloadedVideos = [];
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+    let currentIndex = 0;
+    let activeVideo = document.getElementById("video1");
+    let nextVideo = document.getElementById("video2");
 
-        // Preload all videos at once
-        function preloadVideos() {
-            videos.forEach((videoSrc, index) => {
-                const videoElement = document.createElement('video');
-                videoElement.src = videoSrc;
-                videoElement.preload = "auto";
-                videoElement.load();
-                preloadedVideos.push(videoElement);
-            });
-        }
+    // Function to handle video loading and play
+    function loadAndPlayVideo(videoElement, videoSource) {
+        videoElement.src = videoSource;
+        videoElement.load(); // Preload the video
+        videoElement.oncanplaythrough = () => {
+            videoElement.play();
+        };
+        videoElement.onerror = () => {
+            console.error(`Error loading video: ${videoSource}`);
+        };
+    }
 
-        // Load the current video
-        function loadVideo(videoElement, videoSrc) {
-            videoElement.src = videoSrc;
-            videoElement.load();
-            videoElement.play().catch((error) => {
-                console.error(`Error playing video ${videoSrc}:`, error);
-                videoElement.src = ''; // Clear the source on error
-            });
-        }
+    loadAndPlayVideo(activeVideo, videos[currentIndex]);
 
-        // Switch to the next video
-        function switchVideo() {
-            activeVideo.style.opacity = 0; // Fade out the current video
-            nextVideo.style.opacity = 1; // Fade in the next video
+    function preloadNextVideo() {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        loadAndPlayVideo(nextVideo, videos[nextIndex]);
 
-            setTimeout(() => {
-                // Swap videos after fade-out
-                [activeVideo, nextVideo] = [nextVideo, activeVideo];
-                nextVideo.classList.remove("active");
-                nextVideo.pause();
-                nextVideo.currentTime = 0;
+        nextVideo.oncanplaythrough = () => {
+            console.log(`Preloaded: ${videos[nextIndex]}`);
+        };
+    }
 
-                currentIndex = (currentIndex + 1) % videos.length; // Update index to next video
+    function switchVideo() {
+        activeVideo.style.opacity = 0;
+        nextVideo.style.opacity = 1;
 
-                // Preload next video
-                preloadNextVideo();
-            }, 2000); // 2 seconds for transition
+        setTimeout(() => {
+            [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-        }
+            nextVideo.classList.remove("active");
+            nextVideo.pause();
+            nextVideo.currentTime = 0;
 
-        // Preload the next video to keep a smooth transition
-        function preloadNextVideo() {
-            const nextIndex = (currentIndex + 1) % videos.length;
-            const nextVideoSrc = videos[nextIndex];
+            currentIndex = (currentIndex + 1) % videos.length;
 
-            nextVideo.src = nextVideoSrc;
-            nextVideo.classList.add("preloading");
+            preloadNextVideo();
+        }, 2222);
+    }
 
-            nextVideo.oncanplaythrough = () => {
-                console.log(`Preloaded: ${nextVideoSrc}`);
-                nextVideo.classList.remove("preloading"); // Remove preloading state once ready
-            };
+    preloadNextVideo();
 
-            nextVideo.onerror = () => {
-                console.error(`Failed to load video: ${nextVideoSrc}`);
-                nextVideo.src = ''; // Clear the source if there's an error
-            };
-
-            nextVideo.load();
-        }
-
-        // Start by preloading all videos
-        preloadVideos();
-
-        // Load the first video
-        loadVideo(activeVideo, videos[currentIndex]);
-
-        // Set interval to switch videos every 5 seconds
-        setInterval(switchVideo, 5000);
-    </script>
+    setInterval(switchVideo, 5000);
+</script>
 
 </body>
 </html>
