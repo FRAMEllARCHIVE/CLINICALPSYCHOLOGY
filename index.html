@@ -340,125 +340,119 @@
 </div>
 
 
-    <script>
+<script>
+    // VIDEO LOGIC
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+    let currentIndex = 0;
+    let activeVideo = document.getElementById("video1");
+    let nextVideo = document.getElementById("video2");
 
+    activeVideo.src = videos[currentIndex];
+    activeVideo.play();
 
-        //VIDEO LOGIC
-        
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-        let currentIndex = 0;
-        let activeVideo = document.getElementById("video1");
-        let nextVideo = document.getElementById("video2");
+    function preloadNextVideo() {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        nextVideo.src = videos[nextIndex];
 
-        activeVideo.src = videos[currentIndex];
-        activeVideo.play();
+        nextVideo.oncanplaythrough = () => {
+            console.log(`Preloaded: ${videos[nextIndex]}`);
+        };
 
-        function preloadNextVideo() {
-            const nextIndex = (currentIndex + 1) % videos.length;
-            nextVideo.src = videos[nextIndex];
+        nextVideo.onerror = () => {
+            console.error(`Failed to preload video: ${videos[nextIndex]}`);
+        };
 
-            nextVideo.oncanplaythrough = () => {
-                console.log(`Preloaded: ${videos[nextIndex]}`);
-            };
-
-            nextVideo.load();
-        }
-
-        function switchVideo() {
-            activeVideo.style.opacity = 0;
-            nextVideo.style.opacity = 1;
-
-            setTimeout(() => {
-                [activeVideo, nextVideo] = [nextVideo, activeVideo];
-
-                nextVideo.classList.remove("active");
-                nextVideo.pause();
-                nextVideo.currentTime = 0;
-
-                currentIndex = (currentIndex + 1) % videos.length;
-
-                preloadNextVideo();
-            }, 2222);
-        }
-
-        preloadNextVideo();
-
-        setInterval(switchVideo, 5000);
-
-        //MODAL LOGIC
-
-        
-document.addEventListener("DOMContentLoaded", function () {
-    const locationModal = document.getElementById("locationModal");
-    const mapFrame = document.getElementById("mapFrame");
-    const locationAddress = document.getElementById("locationAddress");
-    const appointmentBtn = document.getElementById("appointmentBtn");
-
-    function openLocationModal(mapURL, address, appointmentLink) {
-        mapFrame.src = mapURL;
-        locationAddress.innerText = address;
-        appointmentBtn.href = appointmentLink;
-        locationModal.style.display = "flex";
+        nextVideo.load();
     }
 
-document.querySelectorAll(".open-location-modal").forEach(button => {
-    button.addEventListener("click", function (event) {
-        event.preventDefault();
-        const location = this.getAttribute("data-location");
-if (location === "westville") {
-    openLocationModal(
-        "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27690.13322794686!2d30.912925999999995!3d-29.827723999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700337d30105b%3A0xc961cbea53f53d2b!2s2%20Knoll%20Rd%2C%20Grayleigh%2C%20Westville%2C%203629%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1739011907910!5m2!1sen!2sus&controls=0",
-        "2 Knoll Rd, Grayleigh, Westville",
-        "https://mygc.co.za/external/diary/505e92bf-ddb4-41c9-8bc5-12d81ffae676"
-    );
-        } else if (location === "bluff") {
-            openLocationModal(
-                "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
-                "297 Lighthouse Rd, Fynnlands, Bluff",
-                "https://mygc.co.za/external/diary/fcc81486-178c-4cfe-ad19-fcc7d0f93aa1"
-            );
-        }
-    });
-});
-});
+    function switchVideo() {
+        activeVideo.style.opacity = 0;
+        nextVideo.style.opacity = 1;
 
+        setTimeout(() => {
+            [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-document.addEventListener("DOMContentLoaded", function () {
-    const mapFrame = document.getElementById("mapFrame");
-    const loadingSpinner = document.getElementById("loadingSpinner");
+            nextVideo.classList.remove("active");
+            nextVideo.pause();
+            nextVideo.currentTime = 0;
 
-    mapFrame.onload = function () {
-        loadingSpinner.style.display = "none";
-    };
+            currentIndex = (currentIndex + 1) % videos.length;
 
-    mapFrame.onerror = function () {
-        loadingSpinner.innerHTML = "Failed to load map. Please try again later.";
-        loadingSpinner.style.color = "red";
-    };
-});
-
-        document.addEventListener("DOMContentLoaded", function () {
-    const openModal = document.getElementById("openModal");
-    const bookingModal = document.getElementById("bookingModal");
-    const locationModal = document.getElementById("locationModal");
-
-    openModal.addEventListener("click", function () {
-        bookingModal.style.display = "flex";
-    });
-
-    function closeModal(event, modal) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
+            preloadNextVideo();
+        }, 2222);
     }
 
-    window.addEventListener("click", function (event) {
-        closeModal(event, bookingModal);
-        closeModal(event, locationModal);
+    preloadNextVideo();
+
+    setInterval(switchVideo, 5000);
+
+    // MODAL LOGIC
+    document.addEventListener("DOMContentLoaded", function () {
+        const locationModal = document.getElementById("locationModal");
+        const mapFrame = document.getElementById("mapFrame");
+        const locationAddress = document.getElementById("locationAddress");
+        const appointmentBtn = document.getElementById("appointmentBtn");
+        const openModal = document.getElementById("openModal");
+        const bookingModal = document.getElementById("bookingModal");
+
+        // Open Location Modal Function
+        function openLocationModal(mapURL, address, appointmentLink) {
+            mapFrame.src = mapURL;
+            locationAddress.innerText = address;
+            appointmentBtn.href = appointmentLink;
+            locationModal.style.display = "flex";
+        }
+
+        // Event listeners for location buttons
+        document.querySelectorAll(".open-location-modal").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const location = this.getAttribute("data-location");
+                if (location === "westville") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27690.13322794686!2d30.912925999999995!3d-29.827723999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700337d30105b%3A0xc961cbea53f53d2b!2s2%20Knoll%20Rd%2C%20Grayleigh%2C%20Westville%2C%203629%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1739011907910!5m2!1sen!2sus&controls=0",
+                        "2 Knoll Rd, Grayleigh, Westville",
+                        "https://mygc.co.za/external/diary/505e92bf-ddb4-41c9-8bc5-12d81ffae676"
+                    );
+                } else if (location === "bluff") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
+                        "297 Lighthouse Rd, Fynnlands, Bluff",
+                        "https://mygc.co.za/external/diary/fcc81486-178c-4cfe-ad19-fcc7d0f93aa1"
+                    );
+                }
+            });
+        });
+
+        // Modal open/close logic
+        openModal.addEventListener("click", function () {
+            bookingModal.style.display = "flex";
+        });
+
+        function closeModal(event, modal) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        window.addEventListener("click", function (event) {
+            closeModal(event, bookingModal);
+            closeModal(event, locationModal);
+        });
+
+        // Handle map loading spinner
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        mapFrame.onload = function () {
+            loadingSpinner.style.display = "none";
+        };
+
+        mapFrame.onerror = function () {
+            loadingSpinner.innerHTML = "Failed to load map. Please try again later.";
+            loadingSpinner.style.color = "red";
+        };
     });
-});
-        
-    </script>
+</script>
 
 </body>
 </html>
