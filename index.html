@@ -39,73 +39,96 @@
         video.active {
             opacity: 1;
         }
-        
+
+        /* Fade-in transition for next video */
+        video.preloading {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
     <div class="video-container">
         <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
         <video id="video2" autoplay muted playsinline preload="auto"></video>
+        <video id="video3" autoplay muted playsinline preload="auto"></video> <!-- Added 3rd video for a longer playlist -->
     </div>
 
     <script>
-        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"]; // List of video sources
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"]; // Video list
         let currentIndex = 0;
         let activeVideo = document.getElementById("video1");
         let nextVideo = document.getElementById("video2");
+        let preloadedVideos = [];
 
-        // Load the first video
+        // Preload all videos at once
+        function preloadVideos() {
+            videos.forEach((videoSrc, index) => {
+                const videoElement = document.createElement('video');
+                videoElement.src = videoSrc;
+                videoElement.preload = "auto";
+                videoElement.load();
+                preloadedVideos.push(videoElement);
+            });
+        }
+
+        // Load the current video
         function loadVideo(videoElement, videoSrc) {
             videoElement.src = videoSrc;
             videoElement.load();
             videoElement.play().catch((error) => {
                 console.error(`Error playing video ${videoSrc}:`, error);
-                videoElement.src = ''; // Clear the source if error occurs
+                videoElement.src = ''; // Clear the source on error
             });
         }
 
-        loadVideo(activeVideo, videos[currentIndex]); // Load the first video
-       
+        // Switch to the next video
+        function switchVideo() {
+            activeVideo.style.opacity = 0; // Fade out the current video
+            nextVideo.style.opacity = 1; // Fade in the next video
+
+            setTimeout(() => {
+                // Swap videos after fade-out
+                [activeVideo, nextVideo] = [nextVideo, activeVideo];
+                nextVideo.classList.remove("active");
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
+
+                currentIndex = (currentIndex + 1) % videos.length; // Update index to next video
+
+                // Preload next video
+                preloadNextVideo();
+            }, 2000); // 2 seconds for transition
+
+        }
+
+        // Preload the next video to keep a smooth transition
         function preloadNextVideo() {
             const nextIndex = (currentIndex + 1) % videos.length;
             const nextVideoSrc = videos[nextIndex];
 
             nextVideo.src = nextVideoSrc;
-            
-            // Handle video load error
+            nextVideo.classList.add("preloading");
+
+            nextVideo.oncanplaythrough = () => {
+                console.log(`Preloaded: ${nextVideoSrc}`);
+                nextVideo.classList.remove("preloading"); // Remove preloading state once ready
+            };
+
             nextVideo.onerror = () => {
-                console.error(`Failed to preload video: ${nextVideoSrc}`);
+                console.error(`Failed to load video: ${nextVideoSrc}`);
                 nextVideo.src = ''; // Clear the source if there's an error
             };
 
-            nextVideo.load(); // Start loading the next video
+            nextVideo.load();
         }
 
-        function switchVideo() {
-            activeVideo.style.opacity = 0;
-            nextVideo.style.opacity = 1;
+        // Start by preloading all videos
+        preloadVideos();
 
-            setTimeout(() => {
-                // Swap the videos
-                [activeVideo, nextVideo] = [nextVideo, activeVideo];
+        // Load the first video
+        loadVideo(activeVideo, videos[currentIndex]);
 
-                // Reset the next video
-                nextVideo.classList.remove("active");
-                nextVideo.pause();
-                nextVideo.currentTime = 0;
-
-                // Update the current index to the next video
-                currentIndex = (currentIndex + 1) % videos.length;
-
-                // Preload the next video
-                preloadNextVideo();
-            }, 2222); // 2.2s fade duration
-        }
-
-        // Start by preloading the next video
-        preloadNextVideo();
-
-        // Switch videos every 5 seconds
+        // Set interval to switch videos every 5 seconds
         setInterval(switchVideo, 5000);
     </script>
 
