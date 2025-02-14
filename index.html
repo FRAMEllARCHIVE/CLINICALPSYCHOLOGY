@@ -213,54 +213,64 @@
 
 
         /* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+   .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 33px;
+        text-align: center;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .modal-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .location-btn {
+        text-decoration: none;
+        background: #007BFF;
+        color: white;
+        padding: 10px;
+        border-radius: 22px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 2px;
+    }
+
+    .location-btn:hover {
+        background: #0056b3;
+    }
+
+
+        .location-icon {
+    font-size: 44px;
+    color: #007BFF;
+            opacity: 0.4;
 }
 
-.modal-content {
-    background: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    width: 300px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.modal-content h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.branch-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.branch-btn {
-    padding: 10px;
-    font-size: 18px;
-    background: #3399FF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.branch-btn:hover {
-    background: #267acc;
+ #appointmentBtn {
+    display: block;
+    margin: 15px 15px;
 }
         
     </style>
@@ -303,17 +313,36 @@
         </div>
     </div>
 
-    <div id="booking-modal" class="modal">
+
+<div id="bookingModal" class="modal">
     <div class="modal-content">
-        <h2>Select a Branch</h2>
-        <div class="branch-options">
-            <button class="branch-btn" data-location="Westville">Westville</button>
-            <button class="branch-btn" data-location="The Bluff">The Bluff</button>
-            <button class="branch-btn" data-location="Online">Online</button>
+        <i class="fas fa-location-pin location-icon"></i>
+        
+        <div class="modal-buttons">
+            <button class="location-btn open-location-modal" data-location="westville">WESTVILLE</button>
+            <button class="location-btn open-location-modal" data-location="bluff">THE BLUFF</button>
+            <a href="https://psychologistneil.co.za" target="_blank" class="location-btn">ONLINE</a>
         </div>
     </div>
 </div>
     
+
+
+
+    <div id="locationModal" class="modal">
+    <div class="modal-content">
+<div id="map-container" style="width: 246px; height: 246px; border-radius: 50%; overflow: hidden; margin: 11px auto 0 auto; ">
+    <div id="loadingSpinner" style="margin-bottom: 22px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 66px; color: #007BFF;"></i>
+    </div>
+    <iframe id="mapFrame" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+        <p id="locationAddress" style="margin-top: 15px; font-size: 16px; color: black; font-weight: bold;"></p>
+        <a id="appointmentBtn" href="#" target="_blank" class="location-btn">MAKE APPOINTMENT</a>
+    </div>
+</div>
+
+
     <script>
         const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
         let currentIndex = 0;
