@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neil Psychologist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 2s ease-in-out;
+            opacity: 0;
+        }
+
+        video.active {
+            opacity: 1;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
+        <video id="video2" autoplay muted playsinline preload="auto"></video>
+    </div>
+
+    <script>
+        const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+        let currentIndex = 0;
+        let activeVideo = document.getElementById("video1");
+        let nextVideo = document.getElementById("video2");
+
+        activeVideo.src = videos[currentIndex];
+        activeVideo.play();
+
+        function preloadNextVideo() {
+            const nextIndex = (currentIndex + 1) % videos.length;
+            nextVideo.src = videos[nextIndex];
+
+            nextVideo.oncanplaythrough = () => {
+                console.log(`Preloaded: ${videos[nextIndex]}`);
+            };
+
+            nextVideo.load();
+        }
+
+        function switchVideo() {
+            activeVideo.style.opacity = 0;
+            nextVideo.style.opacity = 1;
+
+            setTimeout(() => {
+                [activeVideo, nextVideo] = [nextVideo, activeVideo];
+
+                nextVideo.classList.remove("active");
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
+
+                currentIndex = (currentIndex + 1) % videos.length;
+
+                preloadNextVideo();
+            }, 2222);
+        }
+
+        preloadNextVideo();
+
+        setInterval(switchVideo, 5000);
+    </script>
+
+</body>
+</html>
