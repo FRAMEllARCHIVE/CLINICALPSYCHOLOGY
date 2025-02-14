@@ -430,12 +430,6 @@
             bookingModal.style.display = "flex";
         });
 
-function closeModal(event, modal) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
         // Handle map loading spinner
         const loadingSpinner = document.getElementById("loadingSpinner");
 
@@ -448,6 +442,12 @@ function closeModal(event, modal) {
             loadingSpinner.style.color = "red";
         };
     });
+
+    function closeModal(event, modal) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
 
 </body>
