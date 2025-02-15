@@ -249,13 +249,13 @@
 
 .image-container {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 500;
+    z-index: 555;
 }
 
 #neil-image {
@@ -456,8 +456,7 @@
 
 
     //profile
-
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const neilText = document.querySelector(".text-container h3");
     const imageContainer = document.getElementById("image-container");
     const neilImage = document.getElementById("neil-image");
@@ -467,15 +466,9 @@
         neilImage.classList.add("active");
     });
 
-    document.addEventListener("click", function (event) {
-        if (!imageContainer.contains(event.target) && event.target !== neilText) {
-            imageContainer.style.display = "none";
-            neilImage.classList.remove("active");
-        }
-    });
-
-    imageContainer.addEventListener("click", function (event) {
-        event.stopPropagation();
+    imageContainer.addEventListener("click", function () {
+        imageContainer.style.display = "none";
+        neilImage.classList.remove("active");
     });
 });
 </script>
