@@ -244,6 +244,33 @@
     display: block;
     margin: 15px 15px;
 }
+
+
+
+.image-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+}
+
+#neil-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+#neil-image.active {
+    transform: scale(1.1);
+}
         
     </style>
 </head>
@@ -311,6 +338,12 @@
 </div>
    
 
+
+<div class="image-container" id="image-container">
+    <img src="neil.png" alt="Neil Clayton" id="neil-image">
+</div>
+    
+    
 <script>
     const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
     let currentIndex = 0;
@@ -419,6 +452,32 @@
         modal.style.display = "none";
     }
 }
+
+
+
+    //profile
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const neilText = document.querySelector(".text-container h3");
+    const imageContainer = document.getElementById("image-container");
+    const neilImage = document.getElementById("neil-image");
+
+    neilText.addEventListener("click", function () {
+        imageContainer.style.display = "flex";
+        neilImage.classList.add("active");
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!imageContainer.contains(event.target) && event.target !== neilText) {
+            imageContainer.style.display = "none";
+            neilImage.classList.remove("active");
+        }
+    });
+
+    imageContainer.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+});
 </script>
 
 </body>
