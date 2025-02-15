@@ -343,10 +343,9 @@
     let activeVideo = document.getElementById("video1");
     let nextVideo = document.getElementById("video2");
 
-    // Function to handle video loading and play
     function loadAndPlayVideo(videoElement, videoSource) {
         videoElement.src = videoSource;
-        videoElement.load(); // Preload the video
+        videoElement.load();
         videoElement.oncanplaythrough = () => {
             videoElement.play();
         };
@@ -387,7 +386,9 @@
 
     setInterval(switchVideo, 5000);
 
-    // MODAL LOGIC
+
+
+    
     document.addEventListener("DOMContentLoaded", function () {
         const locationModal = document.getElementById("locationModal");
         const mapFrame = document.getElementById("mapFrame");
@@ -396,7 +397,6 @@
         const openModal = document.getElementById("openModal");
         const bookingModal = document.getElementById("bookingModal");
 
-        // Open Location Modal Function
         function openLocationModal(mapURL, address, appointmentLink) {
             mapFrame.src = mapURL;
             locationAddress.innerText = address;
@@ -404,7 +404,6 @@
             locationModal.style.display = "flex";
         }
 
-        // Event listeners for location buttons
         document.querySelectorAll(".open-location-modal").forEach(button => {
             button.addEventListener("click", function (event) {
                 event.preventDefault();
@@ -425,12 +424,10 @@
             });
         });
 
-        // Modal open/close logic
         openModal.addEventListener("click", function () {
             bookingModal.style.display = "flex";
         });
 
-        // Handle map loading spinner
         const loadingSpinner = document.getElementById("loadingSpinner");
 
         mapFrame.onload = function () {
