@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-
-<!-- Legal Footnote: This content is subject to copyright and should not be reproduced without permission. -->
-<!-- Written and created by Thomas John-Michael de Beer, feel free to contact me via tjdebeer@gmail.com  -->
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,25 +20,26 @@
             height: 100vh;
             font-family: 'Helvetica', sans-serif;
         }
-.video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-}
 
-video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 1s ease-in-out;
-}
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
 
-#video2 {
-    opacity: 0; /* Initially hidden */
-}
+        video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 2s ease-in-out;
+        }
+
+        #video2 {
+            opacity: 0;
+        }
         
         .text-container {
             position: fixed;
@@ -56,20 +53,17 @@ video {
         }
 
         .text-container h1,
-        .text-container h2,
-        .book-here {
+        .text-container h2 {
             color: #3399FF;
         }
 
         .text-container h1 {
-            font-family: 'Helvetica', sans-serif;
             font-size: 43px;
             font-weight: lighter;
             letter-spacing: 1px;
         }
 
         .text-container h2 {
-            font-family: 'Helvetica', sans-serif;
             font-size: 25px;
             font-weight: bold;
             letter-spacing: 2.2px;
@@ -77,7 +71,6 @@ video {
         }
 
         .text-container h3 {
-            font-family: 'Helvetica', sans-serif;
             font-size: 23px;
             font-weight: lighter;
             letter-spacing: 3.3px;
@@ -98,8 +91,6 @@ video {
 
         .icon {
             text-decoration: none;
-            outline: none;
-            border: none;
             background: transparent;
             display: flex;
             align-items: center;
@@ -111,84 +102,61 @@ video {
             color: white;
         }
 
-        .icon:focus,
-        .icon:active {
-            outline: none;
-            box-shadow: none;
-        }
-
         .icon:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
         .icon i {
             font-size: 28px;
-            color: inherit;
         }
 
-.logo-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-    animation: fadeOutContainer 5s ease-in-out forwards;
-}
+        .logo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            animation: fadeOutContainer 5s ease-in-out forwards;
+        }
 
-.logo-container img {
-    width: 111px;
-    animation: fadeInOutLogo 5s ease-in-out forwards;
-}
+        .logo-container img {
+            width: 111px;
+            animation: fadeInOutLogo 5s ease-in-out forwards;
+        }
 
-@keyframes fadeOutContainer {
-    0% {
-        opacity: 1;
-    }
-    66% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        pointer-events: none;
-    }
-}
+        @keyframes fadeOutContainer {
+            0% { opacity: 1; }
+            66% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
 
-@keyframes fadeInOutLogo {
-    0% {
-        opacity: 0;
-    }
-    33% {
-        opacity: 1;
-    }
-    55% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        pointer-events: none;
-    }
-}
+        @keyframes fadeInOutLogo {
+            0% { opacity: 0; }
+            33% { opacity: 1; }
+            55% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
     </style>
 </head>
 <body>
     <div class="logo-container" id="logo-container">
-        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
+        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo">
     </div>
 
     <div class="video-container">
-    <video id="video1" autoplay muted playsinline>
-        <source src="4.mp4" type="video/mp4">
-    </video>
-    <video id="video2" muted playsinline>
-        <source src="4.mp4" type="video/mp4">
-    </video>
-</div>
-    
+        <video id="video1" autoplay muted playsinline loop>
+            <source src="4.mp4" type="video/mp4">
+        </video>
+        <video id="video2" muted playsinline loop>
+            <source src="4.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <div class="text-container">
         <h1>CLINICAL</h1>
         <h2>PSYCHOLOGY</h2>
@@ -201,11 +169,9 @@ video {
                 <a href="https://api.whatsapp.com/send/?phone=27814446461" target="_blank" class="icon" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-
                 <a href="mailto:info@psychologistneil.co.za" class="icon" aria-label="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-
                 <a href="info.html" target="_blank" class="icon" aria-label="Info">
                     <i class="fas fa-info-circle"></i>
                 </a>
@@ -213,45 +179,36 @@ video {
         </div>
     </div>
 
-   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video1 = document.getElementById("video1");
+            const video2 = document.getElementById("video2");
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const video1 = document.getElementById("video1");
-    const video2 = document.getElementById("video2");
+            function fadeVideos() {
+                setInterval(() => {
+                    if (video1.style.opacity == "1") {
+                        video2.currentTime = 0;
+                        video2.play();
+                        video2.style.opacity = 1;
+                        video1.style.opacity = 0;
+                    } else {
+                        video1.currentTime = 0;
+                        video1.play();
+                        video1.style.opacity = 1;
+                        video2.style.opacity = 0;
+                    }
+                }, video1.duration * 1000 - 2000);
+            }
 
-    function playVideos() {
-        video1.play();
-        setTimeout(() => {
-            video2.play();
-            video2.style.opacity = 1; // Fade in video2 while video1 is still playing
-        }, 5000); // Adjust timing for the overlap (e.g., 5 seconds before video1 ends)
-    }
-
-    video1.addEventListener("timeupdate", function () {
-        if (video1.currentTime >= video1.duration - 5) { // Start fading in video2
-            video2.currentTime = 0;
-            video2.play();
-            video2.style.opacity = 1;
-        }
-    });
-
-    video2.addEventListener("timeupdate", function () {
-        if (video2.currentTime >= video2.duration - 5) { // Start fading in video1
-            video1.currentTime = 0;
             video1.play();
-            video1.style.opacity = 1;
-        }
-    });
+            setTimeout(() => {
+                video2.play();
+                video2.style.opacity = 1;
+            }, video1.duration * 1000 - 2000);
 
-    video2.addEventListener("ended", function () {
-        video1.style.opacity = 1; // Ensure video1 is fully visible
-    });
-
-    playVideos(); // Start the loop
-});
-    
-</script>
+            fadeVideos();
+        });
+    </script>
 
 </body>
 </html>
