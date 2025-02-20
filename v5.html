@@ -276,12 +276,12 @@
     <div class="logo-container" id="logo-container">
         <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
     </div>
-    
-    <div class="video-container">
-        <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
-        <video id="video2" autoplay muted playsinline preload="auto"></video>
-    </div>
 
+    
+    <video id="backgroundVideo" autoplay muted playsinline loop>
+    <source src="4.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
     
 <div class="book-here" id="openModal">
     BOOK HERE
@@ -338,55 +338,13 @@
    
 
 <script>
-const videoSource = "4.mp4";
-let activeVideo = document.getElementById("video1");
-let nextVideo = document.getElementById("video2");
+document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById("backgroundVideo");
 
-// Function to load and play a video
-function loadAndPlayVideo(videoElement) {
-    videoElement.src = videoSource;
-    videoElement.load();
-    videoElement.oncanplaythrough = () => {
-        videoElement.play();
+    video.onerror = function () {
+        console.error("Error loading video: 4.mp4");
     };
-    videoElement.onerror = () => {
-        console.error(`Error loading video: ${videoSource}`);
-    };
-}
-
-// Load and play the initial video
-loadAndPlayVideo(activeVideo);
-
-// Preload the next instance of the same video
-function preloadNextVideo() {
-    loadAndPlayVideo(nextVideo);
-
-    nextVideo.oncanplaythrough = () => {
-        console.log(`Preloaded: ${videoSource}`);
-    };
-}
-
-// Function to switch between videos
-function switchVideo() {
-    activeVideo.style.opacity = 0;
-    nextVideo.style.opacity = 1;
-
-    setTimeout(() => {
-        [activeVideo, nextVideo] = [nextVideo, activeVideo];
-
-        nextVideo.pause();
-        nextVideo.currentTime = 0;
-        preloadNextVideo();
-    }, 2222);
-}
-
-// Start preloading the second instance
-preloadNextVideo();
-
-// Trigger the transition when the active video ends
-activeVideo.onended = switchVideo;
-nextVideo.onended = switchVideo;
-
+});
 
     
     document.addEventListener("DOMContentLoaded", function () {
