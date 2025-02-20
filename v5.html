@@ -24,44 +24,24 @@
             height: 100vh;
             font-family: 'Helvetica', sans-serif;
         }
-
-        .video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 2s ease-in-out;
-            opacity: 1;
-        }
-
-        video.active {
-            opacity: 1;
-        }
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 2s ease-in-out;
 }
 
-.video-fade {
-    animation: fadeOut 1s forwards;
-}
-
-.video-fade-in {
-    animation: fadeIn 1s forwards;
+#video2 {
+    opacity: 0; /* Initially hidden */
 }
         
         .text-container {
@@ -295,11 +275,14 @@
         <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
     </div>
 
-    
-    <video id="backgroundVideo" autoplay muted playsinline loop>
-    <source src="4.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+    <div class="video-container">
+    <video id="video1" autoplay muted playsinline>
+        <source src="4.mp4" type="video/mp4">
+    </video>
+    <video id="video2" muted playsinline>
+        <source src="4.mp4" type="video/mp4">
+    </video>
+</div>
     
 <div class="book-here" id="openModal">
     BOOK HERE
@@ -357,26 +340,27 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("backgroundVideo");
+    const video1 = document.getElementById("video1");
+    const video2 = document.getElementById("video2");
 
-    video.addEventListener("timeupdate", function () {
-        if (video.duration - video.currentTime <= 1) {
-            video.classList.add("video-fade");
+    video1.addEventListener("timeupdate", function () {
+        if (video1.currentTime >= 6) { // 2 seconds before video ends
+            video2.currentTime = 0;
+            video2.play();
+            video2.style.opacity = 1; // Fade in video2
         }
     });
 
-    video.addEventListener("ended", function () {
-        video.classList.remove("video-fade");
-        video.classList.add("video-fade-in");
+    video2.addEventListener("timeupdate", function () {
+        if (video2.currentTime >= 2) { // Once video2 is fully visible
+            video1.style.opacity = 0; // Fade out video1
+        }
+    });
 
-        video.currentTime = 0;
-        video.play();
-
-
-        
-        setTimeout(() => {
-            video.classList.remove("video-fade-in");
-        }, 1000);
+    video2.addEventListener("ended", function () {
+        video1.currentTime = 0; // Reset video1
+        video1.play();
+        video1.style.opacity = 1; // Fade in video1
     });
 });
     
