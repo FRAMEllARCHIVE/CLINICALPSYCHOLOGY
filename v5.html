@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neil Psychologist</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet">
+    <title>Seamless Video Loop</title>
     <style>
         * {
             margin: 0;
@@ -16,9 +14,10 @@
         body {
             background: black;
             overflow: hidden;
-            position: relative;
             height: 100vh;
-            font-family: 'Helvetica', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .video-container {
@@ -27,6 +26,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            overflow: hidden;
         }
 
         video {
@@ -37,146 +37,25 @@
             transition: opacity 2s ease-in-out;
         }
 
+        #video1 {
+            opacity: 1;
+            z-index: 3;
+        }
+
         #video2 {
             opacity: 0;
-        }
-        
-        .text-container {
-            position: fixed;
-            bottom: 62px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            z-index: 100;
-            width: 100%;
-        }
-
-        .text-container h1,
-        .text-container h2 {
-            color: #3399FF;
-        }
-
-        .text-container h1 {
-            font-size: 43px;
-            font-weight: lighter;
-            letter-spacing: 1px;
-        }
-
-        .text-container h2 {
-            font-size: 25px;
-            font-weight: bold;
-            letter-spacing: 2.2px;
-            margin-bottom: 2px;
-        }
-
-        .text-container h3 {
-            font-size: 23px;
-            font-weight: lighter;
-            letter-spacing: 3.3px;
-            color: white;
-            opacity: 0.4;
-        }
-
-        .icon-row {
-            display: flex;
-            justify-content: space-between;
-            width: 222px;
-            position: fixed;
-            bottom: 42px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 333;
-        }
-
-        .icon {
-            text-decoration: none;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            transition: background 0.3s ease-in-out;
-            color: white;
-        }
-
-        .icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .icon i {
-            font-size: 28px;
-        }
-
-        .logo-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            animation: fadeOutContainer 5s ease-in-out forwards;
-        }
-
-        .logo-container img {
-            width: 111px;
-            animation: fadeInOutLogo 5s ease-in-out forwards;
-        }
-
-        @keyframes fadeOutContainer {
-            0% { opacity: 1; }
-            66% { opacity: 1; }
-            100% { opacity: 0; pointer-events: none; }
-        }
-
-        @keyframes fadeInOutLogo {
-            0% { opacity: 0; }
-            33% { opacity: 1; }
-            55% { opacity: 1; }
-            100% { opacity: 0; pointer-events: none; }
+            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <div class="logo-container" id="logo-container">
-        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo">
-    </div>
-
     <div class="video-container">
-        <video id="video1" autoplay muted playsinline loop>
+        <video id="video1" muted playsinline>
             <source src="4.mp4" type="video/mp4">
         </video>
-        <video id="video2" muted playsinline loop>
+        <video id="video2" muted playsinline>
             <source src="4.mp4" type="video/mp4">
         </video>
-    </div>
-
-    <div class="text-container">
-        <h1>CLINICAL</h1>
-        <h2>PSYCHOLOGY</h2>
-        <h3>NEIL CLAYTON</h3>
-    </div>
-
-    <div class="container">
-        <div class="bottom-buttons">
-            <div class="icon-row">
-                <a href="https://api.whatsapp.com/send/?phone=27814446461" target="_blank" class="icon" aria-label="WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="mailto:info@psychologistneil.co.za" class="icon" aria-label="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="info.html" target="_blank" class="icon" aria-label="Info">
-                    <i class="fas fa-info-circle"></i>
-                </a>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -184,31 +63,36 @@
             const video1 = document.getElementById("video1");
             const video2 = document.getElementById("video2");
 
-            function fadeVideos() {
-                setInterval(() => {
-                    if (video1.style.opacity == "1") {
-                        video2.currentTime = 0;
-                        video2.play();
-                        video2.style.opacity = 1;
-                        video1.style.opacity = 0;
-                    } else {
-                        video1.currentTime = 0;
-                        video1.play();
-                        video1.style.opacity = 1;
-                        video2.style.opacity = 0;
-                    }
-                }, video1.duration * 1000 - 2000);
-            }
-
             video1.play();
-            setTimeout(() => {
-                video2.play();
-                video2.style.opacity = 1;
-            }, video1.duration * 1000 - 2000);
 
-            fadeVideos();
+            video1.addEventListener("timeupdate", function () {
+                if (video1.currentTime >= 5 && video2.paused) {
+                    video2.currentTime = 0;
+                    video2.play();
+                    video1.style.opacity = "0";
+                    video2.style.opacity = "1";
+
+                    setTimeout(() => {
+                        video1.style.zIndex = "1";
+                        video2.style.zIndex = "3";
+                    }, 2000);
+                }
+            });
+
+            video2.addEventListener("timeupdate", function () {
+                if (video2.currentTime >= 5 && video1.paused) {
+                    video1.currentTime = 0;
+                    video1.play();
+                    video2.style.opacity = "0";
+                    video1.style.opacity = "1";
+
+                    setTimeout(() => {
+                        video2.style.zIndex = "1";
+                        video1.style.zIndex = "3";
+                    }, 2000);
+                }
+            });
         });
     </script>
-
 </body>
 </html>
