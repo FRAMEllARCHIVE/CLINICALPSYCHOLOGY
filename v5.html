@@ -46,6 +46,24 @@
             opacity: 1;
         }
 
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.video-fade {
+    animation: fadeOut 1s forwards;
+}
+
+.video-fade-in {
+    animation: fadeIn 1s forwards;
+}
+        
         .text-container {
             position: fixed;
             bottom: 62px;
@@ -341,11 +359,26 @@
 document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("backgroundVideo");
 
-    video.onerror = function () {
-        console.error("Error loading video: 4.mp4");
-    };
-});
+    video.addEventListener("timeupdate", function () {
+        if (video.duration - video.currentTime <= 1) {
+            video.classList.add("video-fade");
+        }
+    });
 
+    video.addEventListener("ended", function () {
+        video.classList.remove("video-fade");
+        video.classList.add("video-fade-in");
+
+        video.currentTime = 0;
+        video.play();
+
+
+        
+        setTimeout(() => {
+            video.classList.remove("video-fade-in");
+        }, 1000);
+    });
+});
     
     document.addEventListener("DOMContentLoaded", function () {
         const locationModal = document.getElementById("locationModal");
