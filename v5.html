@@ -338,54 +338,54 @@
    
 
 <script>
-    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
-    let currentIndex = 0;
-    let activeVideo = document.getElementById("video1");
-    let nextVideo = document.getElementById("video2");
+const videoSource = "4.mp4";
+let activeVideo = document.getElementById("video1");
+let nextVideo = document.getElementById("video2");
 
-    function loadAndPlayVideo(videoElement, videoSource) {
-        videoElement.src = videoSource;
-        videoElement.load();
-        videoElement.oncanplaythrough = () => {
-            videoElement.play();
-        };
-        videoElement.onerror = () => {
-            console.error(`Error loading video: ${videoSource}`);
-        };
-    }
+// Function to load and play a video
+function loadAndPlayVideo(videoElement) {
+    videoElement.src = videoSource;
+    videoElement.load();
+    videoElement.oncanplaythrough = () => {
+        videoElement.play();
+    };
+    videoElement.onerror = () => {
+        console.error(`Error loading video: ${videoSource}`);
+    };
+}
 
-    loadAndPlayVideo(activeVideo, videos[currentIndex]);
+// Load and play the initial video
+loadAndPlayVideo(activeVideo);
 
-    function preloadNextVideo() {
-        const nextIndex = (currentIndex + 1) % videos.length;
-        loadAndPlayVideo(nextVideo, videos[nextIndex]);
+// Preload the next instance of the same video
+function preloadNextVideo() {
+    loadAndPlayVideo(nextVideo);
 
-        nextVideo.oncanplaythrough = () => {
-            console.log(`Preloaded: ${videos[nextIndex]}`);
-        };
-    }
+    nextVideo.oncanplaythrough = () => {
+        console.log(`Preloaded: ${videoSource}`);
+    };
+}
 
-    function switchVideo() {
-        activeVideo.style.opacity = 0;
-        nextVideo.style.opacity = 1;
+// Function to switch between videos
+function switchVideo() {
+    activeVideo.style.opacity = 0;
+    nextVideo.style.opacity = 1;
 
-        setTimeout(() => {
-            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+    setTimeout(() => {
+        [activeVideo, nextVideo] = [nextVideo, activeVideo];
 
-            nextVideo.classList.remove("active");
-            nextVideo.pause();
-            nextVideo.currentTime = 0;
+        nextVideo.pause();
+        nextVideo.currentTime = 0;
+        preloadNextVideo();
+    }, 2222);
+}
 
-            currentIndex = (currentIndex + 1) % videos.length;
+// Start preloading the second instance
+preloadNextVideo();
 
-            preloadNextVideo();
-        }, 2222);
-    }
-
-    preloadNextVideo();
-
-    setInterval(switchVideo, 5000);
-
+// Trigger the transition when the active video ends
+activeVideo.onended = switchVideo;
+nextVideo.onended = switchVideo;
 
 
     
