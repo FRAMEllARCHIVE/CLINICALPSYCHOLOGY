@@ -67,7 +67,7 @@
             video1.play();
 
             video1.addEventListener("timeupdate", function () {
-                if (video1.currentTime >= 5 && video2.paused) {
+                if (video1.currentTime >= 6 && video2.paused) {
                     video2.currentTime = 0;
                     video2.play();
                     video1.style.opacity = "0";
@@ -81,7 +81,7 @@
             });
 
             video2.addEventListener("timeupdate", function () {
-                if (video2.currentTime >= 5 && video1.paused) {
+                if (video2.currentTime >= 6 && video1.paused) {
                     video1.currentTime = 0;
                     video1.play();
                     video2.style.opacity = "0";
