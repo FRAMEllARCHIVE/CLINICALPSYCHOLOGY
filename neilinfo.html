@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
@@ -23,7 +23,7 @@
     background-color: #f4f7f9;
     color: #333;
     font-size: 16px;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 .background-video {
@@ -50,34 +50,35 @@
 
 .container {
     width: 85%;
-    max-width: 1200px; /* Maximum width of the content */
+    max-width: 1200px;
     margin: auto;
     padding: 0 20px;
 }
 
 header {
-    background: rgba(41, 171, 226, 0.9); /* Semi-transparent blue */
+    background: rgba(41, 171, 226, 0.7);
     color: #fff;
-    padding: 40px 0;
-    margin-bottom: 30px;
+    padding: 20px 0;
+    margin-bottom: 99px;
+    margin-top: 30px; 
     position: relative;
-    z-index: 100; /* Ensure header is above other elements */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
-    text-align: center; /* Center header content */
+    z-index: 100;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 header h1 {
     font-size: 3em;
     margin: 0;
-    font-weight: 600; /* Stronger font weight */
-    letter-spacing: 1px; /* Subtle letter spacing for elegance */
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 header p {
     font-size: 1.4em;
     margin-top: 10px;
     font-weight: 400;
-    opacity: 0.9; /* Slightly transparent subtitle */
+    opacity: 0.8;
 }
 
 main {
@@ -88,17 +89,11 @@ main {
 .section {
     padding: 40px;
     margin-bottom: 30px;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
 }
 
-.section:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-}
 
 .section.image-bg {
     background-size: cover;
@@ -106,7 +101,6 @@ main {
     color: white;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
     padding: 60px;
-    border-radius: 15px;
     position: relative;
     overflow: hidden;
 }
@@ -134,16 +128,12 @@ main {
 }
 
 #quote {
-    background: #eef9ff;
+    background: transparent;
     font-style: italic;
     padding: 40px;
-    border-left: 5px solid #29ABE2;
     transition: background-color 0.3s ease;
 }
 
-#quote:hover {
-    background-color: #d9f2ff;
-}
 
 #quote blockquote {
     font-size: 1.7em;
@@ -152,10 +142,6 @@ main {
     padding: 0 30px;
     line-height: 1.9;
     transition: color 0.3s ease;
-}
-
-#quote:hover blockquote {
-    color: #29ABE2;
 }
 
 #quote .author {
@@ -221,10 +207,8 @@ main {
     margin-bottom: 20px;
     line-height: 1.8;
     padding: 15px;
-    border: 1px solid #e1e8ee;
     border-top: none;
-    border-radius: 0 0 8px 8px;
-    background-color: #f9f9f9;
+    background-color: transparent;
 }
 
 #contact-form {
@@ -235,7 +219,7 @@ main {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #555;
+    color: white;
 }
 
 #contact-form input[type="text"],
@@ -399,7 +383,7 @@ footer p {
 
 p {
     margin-bottom: 20px;
-    color: #555;
+    color: white;
 }
       
    </style> 
@@ -407,7 +391,7 @@ p {
 
     <div class="background-video">
         <video autoplay loop muted playsinline>
-            <source src="https://player.vimeo.com/external/393448453.sd.mp4?s=ca45efb355a9c117a4f40d945fefb893e762c755&profile_id=164&oauth2_token_id=57447761"
+            <source src="1.mp4"
                 type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -431,11 +415,8 @@ p {
         </section>
 
         <section id="about" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1505576994272-a9649a88a241?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <div class="container">
                 <h2>About Me</h2>
-                <img src="https://images.unsplash.com/photo-1560250097-05c9516f3311?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="About Me" class="img-responsive">
                 <p>
                     I am deeply interested in how people think, feel, and behave. I appreciate the journey of self
                     discovery
@@ -453,11 +434,8 @@ p {
         </section>
 
         <section id="expertise" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1519389950473-47a0480f545f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <div class="container">
                 <h2>Expertise</h2>
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Expertise" class="img-responsive">
                 <p>I have experience in helping people make sustainable behavioural improvements in the following
                     areas:</p>
                 <ul>
@@ -477,11 +455,8 @@ p {
         </section>
 
         <section id="imago" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec8c36?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <div class="container">
                 <h2>Imago for Couples</h2>
-                <img src="https://images.unsplash.com/photo-1542751539-79e916c75ca0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Imago" class="img-responsive">
                 <p>
                     I make use of Imago Therapy as a technique to assist couples to learn new and better ways of
                     communicating. (Please note that I prefer the first session with a Couple to be two hours’ long.
@@ -492,11 +467,8 @@ p {
         </section>
 
         <section id="approach" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1543751476-634a3f7c8461?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
             <div class="container">
                 <h2>Approach</h2>
-                <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Approach" class="img-responsive">
                 <p>
                     I am ‘solution focused’ and practice a range of psychodynamic therapies, mindfulness approaches,
                     and
@@ -508,11 +480,9 @@ p {
         </section>
 
         <section id="ketamine" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1532629338240-6389ea14a09e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+           
             <div class="container">
                 <h2>Ketamine Assisted Psychotherapy</h2>
-                <img src="https://images.unsplash.com/photo-1618424181774-4119c5f2e34c?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Ketamine" class="img-responsive">
                 <p>
                     Ketamine-assisted psychotherapy (KAP) involves the use of prescribed doses of ketamine as an adjunct
                     to
@@ -526,11 +496,9 @@ p {
         </section>
 
         <section id="online" class="section image-bg"
-            style="background-image: url('https://images.unsplash.com/photo-1517694712202-14f924cd81d6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+           
             <div class="container">
                 <h2>Online Therapy</h2>
-                <img src="https://images.unsplash.com/photo-1509228456590-a46892dd2c6f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Online Therapy" class="img-responsive">
                 <p>
                     I also offer online consultations: Although face-to-face therapy is recommended as the preferred
                     method,
@@ -546,9 +514,6 @@ p {
         <section id="faq" class="section">
             <div class="container">
                 <h2>Frequently Asked Questions…</h2>
-                <img src="https://images.unsplash.com/photo-1542626991-cbc4e3e8496f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="FAQ" class="img-responsive">
-
                 <h3>What is Therapy and Counselling?</h3>
                 <p style="display: none;">
                     It sounds too easy, but simply talking to someone within a confidential and safe space allows you
@@ -623,15 +588,15 @@ p {
         <section id="contact" class="section">
             <div class="container">
                 <h2>Contact</h2>
-                <img src="https://images.unsplash.com/photo-1588361860263-d9578c80a34a?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Contact" class="img-responsive">
                 <p>I run two practices:</p>
                 <p>Rooms on the Bluff at Dr Khan’s Medical Centre, 297 Lighthouse Road, Fynnlands.</p>
                 <p>Rooms in Westville at a private residence, 2 Knoll Road, Grayleigh.</p>
                 <p>If you would like to schedule an appointment, you can book online or you can contact Shakayla (my
                     Practice Manager) to schedule a session. If she doesn’t answer, please send her a WhatsApp
                     message.</p>
-                <p>Her number is 081 444 6461. Mine is 069 524 3665.</p>
+                <p>Her number is 081 444 6461.</p>
+               
+                <p>Mine is 069 524 3665.</p> 
                 <p>Another option is to fill in the form below and I will get back to you as soon as possible!</p>
 
                 <form id="contact-form">
