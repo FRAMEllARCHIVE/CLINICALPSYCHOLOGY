@@ -45,6 +45,345 @@
         }
 
         
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(41, 171, 226, 0.7);
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 99px;
+    margin-top: 30px; 
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.4em;
+    margin-top: 10px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+.section {
+    padding: 40px;
+    margin-bottom: 30px;
+    background-color: transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+
+.section.image-bg {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.section.image-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+}
+
+.section.image-bg>* {
+    position: relative;
+    z-index: 2;
+}
+
+.section.image-bg h2,
+.section.image-bg p,
+.section.image-bg ul {
+    color: white;
+}
+
+#quote {
+    background: transparent;
+    font-style: italic;
+    padding: 40px;
+    transition: background-color 0.3s ease;
+}
+
+
+#quote blockquote {
+    font-size: 1.7em;
+    text-align: center;
+    color: #495057;
+    padding: 0 30px;
+    line-height: 1.9;
+    transition: color 0.3s ease;
+}
+
+#quote .author {
+    text-align: center;
+    font-size: 1.1em;
+    color: #6c757d;
+    transition: color 0.3s ease;
+    margin-top: 15px;
+}
+
+#quote:hover .author {
+    color: #495057;
+}
+
+#about h2,
+#expertise h2,
+#imago h2,
+#approach h2,
+#ketamine h2,
+#online h2,
+#faq h2,
+#contact h2 {
+    color: #29ABE2;
+    text-align: center;
+    border-bottom: 3px solid #29ABE2;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    font-size: 2.4em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+#expertise ul {
+    list-style-type: disc;
+    padding-left: 30px;
+}
+
+#expertise li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+#faq h3 {
+    color: #29ABE2;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 15px;
+    background-color: #f0f5f9;
+    border-radius: 8px;
+    margin-bottom: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#faq h3:hover {
+    color: #fff;
+    background-color: #1e81b0;
+}
+
+#faq p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    padding: 15px;
+    border-top: none;
+    background-color: transparent;
+}
+
+#contact-form {
+    margin-top: 30px;
+}
+
+#contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #bcd0e7;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background-color: #f8fafd;
+    color: #333;
+}
+
+#contact-form input[type="text"]:focus,
+#contact-form input[type="email"]:focus,
+#contact-form textarea:focus {
+    border-color: #29ABE2;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(41, 171, 226, 0.2);
+}
+
+#contact-form textarea {
+    height: 150px;
+}
+
+#contact-form button {
+    background-color: #29ABE2;
+    color: white;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contact-form button:hover {
+    background-color: #1e81b0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+footer {
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 0 15px;
+    }
+
+    header {
+        padding: 30px 0;
+    }
+
+    header h1 {
+        font-size: 2.6em;
+    }
+
+    header p {
+        font-size: 1.3em;
+    }
+
+    .section {
+        padding: 30px;
+    }
+
+    .section.image-bg {
+        padding: 40px;
+    }
+
+    #quote blockquote {
+        font-size: 1.5em;
+    }
+
+    #about h2,
+    #expertise h2,
+    #imago h2,
+    #approach h2,
+    #ketamine h2,
+    #online h2,
+    #faq h2,
+    #contact h2 {
+        font-size: 2em;
+    }
+
+    #expertise ul {
+        padding-left: 25px;
+    }
+
+    #expertise li {
+        font-size: 1em;
+    }
+
+    #faq h3 {
+        font-size: 1.2em;
+    }
+
+    #contact-form input[type="text"],
+    #contact-form input[type="email"],
+    #contact-form textarea {
+        padding: 12px;
+        margin-bottom: 18px;
+        font-size: 0.95em;
+    }
+
+    #contact-form button {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    header p {
+        font-size: 1.1em;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    .section.image-bg {
+        padding: 30px;
+    }
+
+    #quote blockquote {
+        font-size: 1.3em;
+    }
+}
+
+p {
+    margin-bottom: 20px;
+    color: white;
+}
+
+        
     </style>
 </head>
 <body>
