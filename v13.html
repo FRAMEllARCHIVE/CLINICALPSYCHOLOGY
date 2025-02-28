@@ -54,7 +54,6 @@
 
         .text-container h1,
         .text-container h2,
-        .text-container h4,
         .book-here {
             color: #3399FF;
         }
@@ -85,14 +84,7 @@
             opacity: 0.9;
         }
 
-                .text-container h4 {
-            font-family: 'Helvetica', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 2.2px;
-            margin-bottom: 2px;
-            pointer-events: none;
-        }
+    
  
 .material-icons {
   color: white;
@@ -117,9 +109,8 @@
             transform: translateX(-50%);
             z-index: 333;
         }
-.icon-row .fa-star {
-    font-size: 26px;
-}
+
+
         .icon {
             text-decoration: none;
             outline: none;
@@ -258,31 +249,6 @@
     margin: 15px 15px;
 }
 
-
-.stars {
-    color: #FFD700;
-    z-index: 199;
-    
-            position: fixed;
-            top: 166px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            width: 100%;
-}
-
-.stars i {
-    color: #FFD700;
-    font-size: 24.4px;
-    margin: 0 5px;
-    z-index: 199;
-    transition: transform 0.3s ease-in-out;
-}
-
-.stars i:hover {
-    transform: scale(1.1);
-}
    
     </style>
 </head>
@@ -306,7 +272,6 @@
   <h1>CLINICAL</h1>
   <h2>PSYCHOLOGIST</h2>
   <h3>NEIL CLAYTON</h3>
-  <h4 class="book-today">BOOK HERE <span class="material-icons">edit_calendar</span></h4>
 </div>
 
 <div class="container">
@@ -323,8 +288,7 @@
             <a href="https://psychologistneil.co.za" target="_blank" class="icon" aria-label="Info">
                 <i class="fas fa-info-circle"></i>
             </a>
-
-            <i class="fas fa-star icon" onclick="openRandomLink()" class="icon" aria-label="Random Review"></i>
+<span class="material-icons">edit_calendar</span>
         </div>
     </div>
 </div>
@@ -415,18 +379,6 @@
     }
 }
 
-
-    function openRandomLink() {
-        const links = [
-            "https://maps.app.goo.gl/4Lk6wkFef3LpZ4xG6",
-            "https://maps.app.goo.gl/ozP3wju5m7rmCQgRA",
-            "https://maps.app.goo.gl/66k8ff9xJUS7tCvS9",
-            "https://maps.app.goo.gl/UEBfUJhaswm5thZVA",
-            "https://maps.app.goo.gl/qSdeC2Gef7cn385M9"
-        ];
-        const randomLink = links[Math.floor(Math.random() * links.length)];
-        window.open(randomLink, '_blank');
-    }
   
 </script>
 
