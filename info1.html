@@ -704,30 +704,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    document.addEventListener('DOMContentLoaded', function () {
     const faqHeaders = document.querySelectorAll('#faq h3');
 
     faqHeaders.forEach(header => {
         header.addEventListener('click', function () {
-            const nextElement = this.nextElementSibling;
-            const isDisplayed = nextElement.style.display === 'block';
+            const paragraph = this.nextElementSibling;
+            const isDisplayed = paragraph.style.display === 'block';
 
             faqHeaders.forEach(otherHeader => {
-                let element = otherHeader.nextElementSibling;
-                while (element && (element.tagName === 'P' || element.tagName === 'UL')) {
-                    element.style.display = 'none';
-                    element = element.nextElementSibling;
+                const otherParagraph = otherHeader.nextElementSibling;
+                if (otherParagraph !== paragraph) {
+                    otherParagraph.style.display = 'none';
                 }
             });
 
-            let element = nextElement;
-            while (element && (element.tagName === 'P' || element.tagName === 'UL')) {
-                element.style.display = isDisplayed ? 'none' : 'block';
-                element = element.nextElementSibling;
-            }
+            paragraph.style.display = isDisplayed ? 'none' : 'block';
         });
     });
-});
+});               
                
 </script>
 </body>
