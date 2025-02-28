@@ -201,6 +201,30 @@ main {
     line-height: 1.7;
 }
 
+#expertise .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#expertise ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#expertise ul li {
+    flex: 1 1 calc(50% - 10px);
+    list-style-type: none;
+}
+
+@media (max-width: 768px) {
+    #expertise ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}    
+    
 #faq h3 {
     color: #29ABE2;
     margin-top: 25px;
