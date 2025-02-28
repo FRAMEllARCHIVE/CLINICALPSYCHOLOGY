@@ -691,24 +691,31 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
+
+    document.addEventListener('DOMContentLoaded', function () {
     const faqHeaders = document.querySelectorAll('#faq h3');
 
     faqHeaders.forEach(header => {
         header.addEventListener('click', function () {
-            const paragraph = this.nextElementSibling;
-            const isDisplayed = paragraph.style.display === 'block';
+            const nextElement = this.nextElementSibling;
+            const isDisplayed = nextElement.style.display === 'block';
 
             faqHeaders.forEach(otherHeader => {
-                const otherParagraph = otherHeader.nextElementSibling;
-                if (otherParagraph !== paragraph) {
-                    otherParagraph.style.display = 'none';
+                let element = otherHeader.nextElementSibling;
+                while (element && (element.tagName === 'P' || element.tagName === 'UL')) {
+                    element.style.display = 'none';
+                    element = element.nextElementSibling;
                 }
             });
 
-            paragraph.style.display = isDisplayed ? 'none' : 'block';
+            let element = nextElement;
+            while (element && (element.tagName === 'P' || element.tagName === 'UL')) {
+                element.style.display = isDisplayed ? 'none' : 'block';
+                element = element.nextElementSibling;
+            }
         });
     });
-});               
+});
                
 </script>
 </body>
