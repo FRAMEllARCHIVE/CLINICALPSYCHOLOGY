@@ -696,7 +696,10 @@ p {
         </div>
     </footer>
 
-    <script>document.addEventListener('DOMContentLoaded', function () {
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
@@ -769,58 +772,72 @@ p {
         start: "top 80%",
         onEnter: () => {
             backgroundVideoContainer.style.visibility = "visible";
-            videoElement.currentTime = 0; // Reset the video to the start
+            videoElement.currentTime = 0;
             gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
-            videoElement.play(); // Play the video from the beginning
+            videoElement.play();
 
-            // Fading out the last 2 seconds of the video
-            const fadeDuration = 2; // Duration in seconds for the fade-out effect
-            const totalVideoDuration = videoElement.duration; // Total duration of the video
-            const fadeStart = totalVideoDuration - fadeDuration; // When to start fading out
+            const fadeDuration = 3;
+            const totalVideoDuration = videoElement.duration;
+            const fadeStart = totalVideoDuration - 4;
 
-            // This ensures the video fades out gradually for the last 2 seconds
             videoElement.ontimeupdate = function () {
                 if (videoElement.currentTime >= fadeStart) {
                     const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
                     gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
+                }
+
+                if (videoElement.currentTime >= totalVideoDuration) {
+                    gsap.to(backgroundVideoContainer, { opacity: 0, duration: fadeDuration });
+                    setTimeout(() => {
+                        videoElement.pause();
+                        backgroundVideoContainer.style.visibility = "hidden";
+                    }, fadeDuration * 1000);
                 }
             };
         },
         onLeave: () => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
-            videoElement.pause(); // Pause the video
-            videoElement.currentTime = 0; // Reset the video time to the beginning
-            backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3 });
+            videoElement.pause();
+            videoElement.currentTime = 0;
+            backgroundVideoContainer.style.visibility = "hidden";
         },
         onEnterBack: () => {
             backgroundVideoContainer.style.visibility = "visible";
-            videoElement.currentTime = 0; // Reset the video to the start when re-entering
+            videoElement.currentTime = 0;
             gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
-            videoElement.play(); // Play the video from the beginning
+            videoElement.play();
 
-            // Fading out the last 2 seconds of the video
-            const fadeDuration = 2; // Duration in seconds for the fade-out effect
-            const totalVideoDuration = videoElement.duration; // Total duration of the video
-            const fadeStart = totalVideoDuration - fadeDuration; // When to start fading out
+            const fadeDuration = 3;
+            const totalVideoDuration = videoElement.duration;
+            const fadeStart = totalVideoDuration - 4;
 
-            // This ensures the video fades out gradually for the last 2 seconds
             videoElement.ontimeupdate = function () {
                 if (videoElement.currentTime >= fadeStart) {
                     const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
                     gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
                 }
+
+                if (videoElement.currentTime >= totalVideoDuration) {
+                    gsap.to(backgroundVideoContainer, { opacity: 0, duration: fadeDuration });
+                    setTimeout(() => {
+                        videoElement.pause();
+                        backgroundVideoContainer.style.visibility = "hidden";
+                    }, fadeDuration * 1000);
+                }
             };
         },
         onLeaveBack: () => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
-            videoElement.pause(); // Pause the video
-            videoElement.currentTime = 0; // Reset the video time to the beginning
-            backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3 });
+            videoElement.pause();
+            videoElement.currentTime = 0;
+            backgroundVideoContainer.style.visibility = "hidden";
         },
         once: false,
     });
 });
 </script>
+
+    
 </body>
 
 </html>
