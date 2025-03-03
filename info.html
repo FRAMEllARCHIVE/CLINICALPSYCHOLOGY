@@ -698,16 +698,15 @@ p {
     </footer>
 
     <script>
-
-       document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
-    const videoElement = document.querySelector(".background-video2 video");
-    const videoSourceElement = videoElement.querySelector("source");
     const sections = gsap.utils.toArray(".section");
 
     sections.forEach(section => {
         let videoSource = section.getAttribute("data-video");
+        const videoElement = section.querySelector(".background-video2 video");
+        const videoSourceElement = videoElement.querySelector("source");
 
         gsap.set(section, { opacity: 0, y: 50 });
 
@@ -722,27 +721,35 @@ p {
 
                 if (videoSourceElement.getAttribute("src") !== videoSource) {
                     gsap.to(videoElement, { opacity: 0, duration: 0.5, onComplete: () => {
+                        // Change the video source and load it
                         videoSourceElement.setAttribute("src", videoSource);
                         videoElement.load();
-                        videoElement.play();
+                        videoElement.play();  // Play the new video
                         gsap.to(videoElement, { opacity: 1, duration: 0.5 });
                     }});
+                } else {
+                    // If the same video, just play it
+                    videoElement.play();
                 }
             },
             onLeave: () => {
                 gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" });
+                videoElement.pause();  // Pause video when leaving
             },
             onEnterBack: () => {
                 console.log("Entered section back: ", section.id);
                 gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" });
+                videoElement.play();  // Play video when entering back
             },
             onLeaveBack: () => {
                 gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" });
+                videoElement.pause();  // Pause video when leaving back
             },
             once: false,
         });
     });
 
+    // Other animations for quote and images
     gsap.fromTo("#quote",
         { opacity: 0, scale: 0.8 },
         {
@@ -771,8 +778,6 @@ p {
             });
     });
 });
-
-
     const faqHeaders = document.querySelectorAll('#faq h3');
 
     faqHeaders.forEach(header => {
