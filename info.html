@@ -696,8 +696,7 @@ p {
         </div>
     </footer>
 
-    <script>
-               document.addEventListener('DOMContentLoaded', function () {
+    <script>document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
@@ -762,31 +761,63 @@ p {
         });
     });
 
-    // Video playback logic for online section
     const videoElement = document.getElementById("background-video");
     const backgroundVideoContainer = document.querySelector(".background-video2");
 
-    // Show the video and play it when scrolling into the "online" section
     ScrollTrigger.create({
         trigger: "#online",
         start: "top 80%",
         onEnter: () => {
-            backgroundVideoContainer.style.visibility = "visible"; // Show the video container
-            videoElement.play(); // Start playing the video
+            backgroundVideoContainer.style.visibility = "visible";
+            videoElement.currentTime = 0; // Reset the video to the start
+            gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
+            videoElement.play(); // Play the video from the beginning
+
+            // Fading out the last 2 seconds of the video
+            const fadeDuration = 2; // Duration in seconds for the fade-out effect
+            const totalVideoDuration = videoElement.duration; // Total duration of the video
+            const fadeStart = totalVideoDuration - fadeDuration; // When to start fading out
+
+            // This ensures the video fades out gradually for the last 2 seconds
+            videoElement.ontimeupdate = function () {
+                if (videoElement.currentTime >= fadeStart) {
+                    const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
+                    gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
+                }
+            };
         },
         onLeave: () => {
-            videoElement.pause(); // Pause the video when it leaves the section
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+            videoElement.pause(); // Pause the video
+            videoElement.currentTime = 0; // Reset the video time to the beginning
             backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
         },
         onEnterBack: () => {
-            backgroundVideoContainer.style.visibility = "visible"; // Show the video container again
-            videoElement.play(); // Play the video again
+            backgroundVideoContainer.style.visibility = "visible";
+            videoElement.currentTime = 0; // Reset the video to the start when re-entering
+            gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
+            videoElement.play(); // Play the video from the beginning
+
+            // Fading out the last 2 seconds of the video
+            const fadeDuration = 2; // Duration in seconds for the fade-out effect
+            const totalVideoDuration = videoElement.duration; // Total duration of the video
+            const fadeStart = totalVideoDuration - fadeDuration; // When to start fading out
+
+            // This ensures the video fades out gradually for the last 2 seconds
+            videoElement.ontimeupdate = function () {
+                if (videoElement.currentTime >= fadeStart) {
+                    const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
+                    gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
+                }
+            };
         },
         onLeaveBack: () => {
-            videoElement.pause(); // Pause the video when it leaves the section
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+            videoElement.pause(); // Pause the video
+            videoElement.currentTime = 0; // Reset the video time to the beginning
             backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
         },
-        once: true, // Ensures it only triggers once as the section enters the view
+        once: false,
     });
 });
 </script>
