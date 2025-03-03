@@ -698,6 +698,10 @@ p {
     </footer>
 
     <script>
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -749,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Other animations for quote and images
+    // Animations for quote
     gsap.fromTo("#quote",
         { opacity: 0, scale: 0.8 },
         {
@@ -762,22 +766,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 once: true,
             }
         });
-
-    document.querySelectorAll('.section img').forEach(img => {
-        gsap.fromTo(img,
-            { scale: 0.9 },
-            {
-                scale: 1, duration: 1.7, ease: "power3.out",
-                scrollTrigger: {
-                    trigger: img,
-                    start: "top 85%",
-                    end: "bottom 15%",
-                    scrub: false,
-                    once: true,
-                }
-            });
-    });
 });
+        
+
+        
     const faqHeaders = document.querySelectorAll('#faq h3');
 
     faqHeaders.forEach(header => {
