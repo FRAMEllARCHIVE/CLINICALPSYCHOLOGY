@@ -38,31 +38,6 @@
     overflow-x: hidden;
 }
 
-.background-video2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.background-video2 video {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-
-
-
-    
 .background-video {
     position: fixed;
     top: 0;
@@ -467,13 +442,6 @@ p {
         </video>
     </div>
 
-    <div class="background-video2">
-    <video autoplay loop muted playsinline>
-        <source src="sectionvideo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
-
     <header>
         <div class="container">
             <h1>Neil Clayton</h1>
@@ -572,17 +540,19 @@ p {
             </div>
         </section>
 
-        <section id="online" class="section image-bg" data-video="4.mp4">
-    <div class="container">
-        <h2>Online Therapy</h2>
-        <p>
-            I also offer online consultations: Although face-to-face therapy is recommended as the preferred
-            method, online therapy might suit some people more, especially those who feel anxious about starting
-            therapy, or those who live far away from my practice. (For instance, people living in other cities or abroad.) 
-            <br><br>If this is preferred, I will send you a link so that we can consult over video link online.
-        </p>
-    </div>
-</section>
+        <section id="online" class="section image-bg"
+           
+            <div class="container">
+                <h2>Online Therapy</h2>
+                <p>
+                    I also offer online consultations: Although face-to-face therapy is recommended as the preferred
+                    method, online therapy might suit some people more, especially those who feel anxious about starting
+                    therapy, or those who live far away from my practice. 
+                    (For instance people living in other cities or abroad.) 
+                    <br><br>If this is preferred, I will send you a link so that we can consult over video link online.
+                </p>
+            </div>
+        </section>
 
 
 
@@ -696,65 +666,27 @@ p {
     </footer>
 
     <script>
-
+               
 document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
 
     sections.forEach(section => {
-        let videoSource = section.getAttribute("data-video");  // Get the video source URL from the section's data-video attribute
-        const videoElement = section.querySelector(".background-video2 video"); // Find the video inside .background-video2
+        gsap.set(section, { opacity: 0, y: 50 });
 
-        // Ensure the video element exists before proceeding
-        if (videoElement) {
-            const videoSourceElement = videoElement.querySelector("source"); // Find the <source> inside the <video> tag
-
-            gsap.set(section, { opacity: 0, y: 50 });
-
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top 80%",
-                end: "bottom 20%",
-                onEnter: () => {
-                    console.log("Entered section: ", section.id);
-
-                    gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" });
-
-                    if (videoSourceElement && videoSourceElement.getAttribute("src") !== videoSource) {
-                        gsap.to(videoElement, { opacity: 0, duration: 0.5, onComplete: () => {
-                            // Change the video source and load it
-                            videoSourceElement.setAttribute("src", videoSource);  // Update the video source URL
-                            videoElement.load();  // Load the new video
-                            videoElement.play();  // Play the new video
-                            gsap.to(videoElement, { opacity: 1, duration: 0.5 });  // Fade the video back in
-                        }});
-                    } else if (videoSourceElement) {
-                        // If the same video, just play it
-                        videoElement.play();
-                    }
-                },
-                onLeave: () => {
-                    gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" });
-                    videoElement.pause();  // Pause video when leaving
-                },
-                onEnterBack: () => {
-                    console.log("Entered section back: ", section.id);
-                    gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" });
-                    videoElement.play();  // Play video when entering back
-                },
-                onLeaveBack: () => {
-                    gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" });
-                    videoElement.pause();  // Pause video when leaving back
-                },
-                once: false,
-            });
-        } else {
-            console.error("No video element found in section", section.id);  // Log error if the video is not found
-        }
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 80%",
+            end: "bottom 20%",
+            onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
+            onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
+            onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
+            onLeaveBack: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
+            once: false,
+        });
     });
 
-    // Animations for quote
     gsap.fromTo("#quote",
         { opacity: 0, scale: 0.8 },
         {
@@ -767,8 +699,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 once: true,
             }
         });
+  document.querySelectorAll('.section img').forEach(img => {
+        gsap.fromTo(img,
+            { scale: 0.9 },
+            {
+                scale: 1, duration: 1.7, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: img,
+                    start: "top 85%",
+                    end: "bottom 15%",
+                    scrub: false,
+                    once: true,
+                }
+            });
+    });
 
-    // FAQ toggle functionality
+
     const faqHeaders = document.querySelectorAll('#faq h3');
 
     faqHeaders.forEach(header => {
@@ -786,7 +732,7 @@ document.addEventListener('DOMContentLoaded', function () {
             paragraph.style.display = isDisplayed ? 'none' : 'block';
         });
     });
-});    
+});               
                
 </script>
 </body>
