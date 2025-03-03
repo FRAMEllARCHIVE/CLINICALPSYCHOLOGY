@@ -695,8 +695,7 @@ p {
     </footer>
 
     <script>
-               
-document.addEventListener('DOMContentLoaded', function () {
+               document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
@@ -728,7 +727,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 once: true,
             }
         });
-  document.querySelectorAll('.section img').forEach(img => {
+
+    document.querySelectorAll('.section img').forEach(img => {
         gsap.fromTo(img,
             { scale: 0.9 },
             {
@@ -743,9 +743,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-
     const faqHeaders = document.querySelectorAll('#faq h3');
-
     faqHeaders.forEach(header => {
         header.addEventListener('click', function () {
             const paragraph = this.nextElementSibling;
@@ -761,8 +759,34 @@ document.addEventListener('DOMContentLoaded', function () {
             paragraph.style.display = isDisplayed ? 'none' : 'block';
         });
     });
-});               
-               
+
+    // Video playback logic for online section
+    const videoElement = document.getElementById("background-video");
+    const backgroundVideoContainer = document.querySelector(".background-video2");
+
+    // Show the video and play it when scrolling into the "online" section
+    ScrollTrigger.create({
+        trigger: "#online",
+        start: "top 80%",
+        onEnter: () => {
+            backgroundVideoContainer.style.visibility = "visible"; // Show the video container
+            videoElement.play(); // Start playing the video
+        },
+        onLeave: () => {
+            videoElement.pause(); // Pause the video when it leaves the section
+            backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
+        },
+        onEnterBack: () => {
+            backgroundVideoContainer.style.visibility = "visible"; // Show the video container again
+            videoElement.play(); // Play the video again
+        },
+        onLeaveBack: () => {
+            videoElement.pause(); // Pause the video when it leaves the section
+            backgroundVideoContainer.style.visibility = "hidden"; // Hide the video container
+        },
+        once: true, // Ensures it only triggers once as the section enters the view
+    });
+});
 </script>
 </body>
 
