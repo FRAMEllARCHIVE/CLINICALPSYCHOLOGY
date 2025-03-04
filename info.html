@@ -771,9 +771,9 @@ document.addEventListener('DOMContentLoaded', function () {
             gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
                 setTimeout(() => {
                     backgroundVideoContainer.style.visibility = "hidden";
-                }, 2222);
+                }, 1111);
             }});
-        }, 6000);
+        }, 5555);
     }
 
 ScrollTrigger.create({
@@ -804,7 +804,7 @@ ScrollTrigger.create({
     start: "top 50%",
     end: "bottom 50%",
     onEnter: () => {
-        videoElement.querySelector('source').src = "4.mp4";
+        videoElement.querySelector('source').src = "6.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
@@ -812,7 +812,7 @@ ScrollTrigger.create({
         clearTimeout(videoTimeout);
     },
     onEnterBack: () => {
-        videoElement.querySelector('source').src = "4.mp4";
+        videoElement.querySelector('source').src = "6.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
