@@ -843,6 +843,73 @@ ScrollTrigger.create({
         clearTimeout(videoTimeout);
     }
 });
+
+            
+           ScrollTrigger.create({
+    trigger: "#imago",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => {
+        videoElement.querySelector('source').src = "5.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeave: () => {
+        clearTimeout(videoTimeout);
+    },
+    onEnterBack: () => {
+        videoElement.querySelector('source').src = "5.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeaveBack: () => {
+        clearTimeout(videoTimeout);
+    }
+});        
+           ScrollTrigger.create({
+    trigger: "#expertise",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => {
+        videoElement.querySelector('source').src = "2.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeave: () => {
+        clearTimeout(videoTimeout);
+    },
+    onEnterBack: () => {
+        videoElement.querySelector('source').src = "2.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeaveBack: () => {
+        clearTimeout(videoTimeout);
+    }
+});
+
+    
+           ScrollTrigger.create({
+    trigger: "#ketamine",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => {
+        videoElement.querySelector('source').src = "11.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeave: () => {
+        clearTimeout(videoTimeout);
+    },
+    onEnterBack: () => {
+        videoElement.querySelector('source').src = "11.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeaveBack: () => {
+        clearTimeout(videoTimeout);
+    }
+});
              
              
 });
