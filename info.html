@@ -690,6 +690,8 @@ p {
         </section>
     </main>
 
+
+    
     <footer>
         <div class="container">
             <p>&copy; 2025 Neil Clayton. All rights reserved.</p>
@@ -698,12 +700,13 @@ p {
 
 
 
+
 <script>
+    
 document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
-
     sections.forEach(section => {
         gsap.set(section, { opacity: 0, y: 50 });
 
@@ -715,7 +718,6 @@ document.addEventListener('DOMContentLoaded', function () {
             onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
             onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeaveBack: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
-            once: false,
         });
     });
 
@@ -727,7 +729,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 trigger: "#quote",
                 start: "top 90%",
                 end: "bottom 10%",
-                scrub: false,
                 once: true,
             }
         });
@@ -741,26 +742,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     trigger: img,
                     start: "top 85%",
                     end: "bottom 15%",
-                    scrub: false,
                     once: true,
                 }
             });
     });
 
-    const faqHeaders = document.querySelectorAll('#faq h3');
-    faqHeaders.forEach(header => {
+    document.querySelectorAll('#faq h3').forEach(header => {
         header.addEventListener('click', function () {
             const paragraph = this.nextElementSibling;
-            const isDisplayed = paragraph.style.display === 'block';
+            paragraph.style.display = (paragraph.style.display === 'block') ? 'none' : 'block';
 
-            faqHeaders.forEach(otherHeader => {
-                const otherParagraph = otherHeader.nextElementSibling;
-                if (otherParagraph !== paragraph) {
-                    otherParagraph.style.display = 'none';
-                }
+            document.querySelectorAll('#faq h3 + p').forEach(otherParagraph => {
+                if (otherParagraph !== paragraph) otherParagraph.style.display = 'none';
             });
-
-            paragraph.style.display = isDisplayed ? 'none' : 'block';
         });
     });
 
@@ -772,71 +766,22 @@ document.addEventListener('DOMContentLoaded', function () {
         start: "top 80%",
         onEnter: () => {
             backgroundVideoContainer.style.visibility = "visible";
+            gsap.set(backgroundVideoContainer, { opacity: 0 });
             videoElement.currentTime = 0;
-            gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
             videoElement.play();
-
-            const fadeDuration = 3;
-            const totalVideoDuration = videoElement.duration;
-            const fadeStart = totalVideoDuration - 4;
-
-            videoElement.ontimeupdate = function () {
-                if (videoElement.currentTime >= fadeStart) {
-                    const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
-                    gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
-                }
-
-                if (videoElement.currentTime >= totalVideoDuration) {
-                    gsap.to(backgroundVideoContainer, { opacity: 0, duration: fadeDuration });
-                    setTimeout(() => {
-                        videoElement.pause();
-                        backgroundVideoContainer.style.visibility = "hidden";
-                    }, fadeDuration * 1000);
-                }
-            };
-        },
-        onLeave: () => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3 });
-            videoElement.pause();
-            videoElement.currentTime = 0;
-            backgroundVideoContainer.style.visibility = "hidden";
-        },
-        onEnterBack: () => {
-            backgroundVideoContainer.style.visibility = "visible";
-            videoElement.currentTime = 0;
             gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
-            videoElement.play();
 
-            const fadeDuration = 3;
-            const totalVideoDuration = videoElement.duration;
-            const fadeStart = totalVideoDuration - 4;
-
-            videoElement.ontimeupdate = function () {
-                if (videoElement.currentTime >= fadeStart) {
-                    const fadeProgress = (videoElement.currentTime - fadeStart) / fadeDuration;
-                    gsap.to(backgroundVideoContainer, { opacity: 1 - fadeProgress, duration: 0.1 });
-                }
-
-                if (videoElement.currentTime >= totalVideoDuration) {
-                    gsap.to(backgroundVideoContainer, { opacity: 0, duration: fadeDuration });
+            setTimeout(() => {
+                gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
                     setTimeout(() => {
-                        videoElement.pause();
                         backgroundVideoContainer.style.visibility = "hidden";
-                    }, fadeDuration * 1000);
-                }
-            };
-        },
-        onLeaveBack: () => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3 });
-            videoElement.pause();
-            videoElement.currentTime = 0;
-            backgroundVideoContainer.style.visibility = "hidden";
-        },
-        once: false,
+                    }, 2222);
+                }});
+            }, 6666);
+        }
     });
 });
 </script>
-
     
 </body>
 
