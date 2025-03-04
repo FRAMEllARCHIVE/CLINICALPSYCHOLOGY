@@ -468,6 +468,14 @@ p {
         </video>
     </div>
 
+       
+<div class="background-video2">
+    <video id="background-video" muted>
+        <source src="11.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+         
     <header>
         <div class="container">
             <h1>Neil Clayton</h1>
@@ -579,12 +587,6 @@ p {
     </div>
 </section>
 
-<div class="background-video2">
-    <video id="background-video" muted>
-        <source src="11.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
 
 
 <section id="faq" class="section">
@@ -690,8 +692,6 @@ p {
         </section>
     </main>
 
-
-    
     <footer>
         <div class="container">
             <p>&copy; 2025 Neil Clayton. All rights reserved.</p>
@@ -699,10 +699,7 @@ p {
     </footer>
 
 
-
-
-<script>
-    
+           <script>
 document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -712,8 +709,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         ScrollTrigger.create({
             trigger: section,
-            start: "top 80%",
-            end: "bottom 20%",
+            start: "top 50%",
+            end: "bottom 50%",
+            toggleActions: "play none none reverse",
             onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
             onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
@@ -727,8 +725,8 @@ document.addEventListener('DOMContentLoaded', function () {
             opacity: 1, scale: 1, duration: 1.2, ease: "elastic.out(1, 0.7)",
             scrollTrigger: {
                 trigger: "#quote",
-                start: "top 90%",
-                end: "bottom 10%",
+                start: "top 75%",
+                end: "bottom 25%",
                 once: true,
             }
         });
@@ -740,8 +738,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 scale: 1, duration: 1.7, ease: "power3.out",
                 scrollTrigger: {
                     trigger: img,
-                    start: "top 85%",
-                    end: "bottom 15%",
+                    start: "top 70%",
+                    end: "bottom 30%",
                     once: true,
                 }
             });
@@ -760,28 +758,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const videoElement = document.getElementById("background-video");
     const backgroundVideoContainer = document.querySelector(".background-video2");
+    let videoTimeout;
+
+    function playVideo() {
+        backgroundVideoContainer.style.visibility = "visible";
+        gsap.set(backgroundVideoContainer, { opacity: 0 });
+        videoElement.currentTime = 0;
+        videoElement.play();
+        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
+
+        setTimeout(() => {
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
+                setTimeout(() => {
+                    backgroundVideoContainer.style.visibility = "hidden";
+                }, 2222);
+            }});
+        }, 6000);
+    }
 
     ScrollTrigger.create({
         trigger: "#online",
-        start: "top 80%",
+        start: "top 50%",
+        end: "bottom 50%",
         onEnter: () => {
-            backgroundVideoContainer.style.visibility = "visible";
-            gsap.set(backgroundVideoContainer, { opacity: 0 });
-            videoElement.currentTime = 0;
-            videoElement.play();
-            gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
-
-            setTimeout(() => {
-                gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
-                    setTimeout(() => {
-                        backgroundVideoContainer.style.visibility = "hidden";
-                    }, 2222);
-                }});
-            }, 6666);
+            videoTimeout = setTimeout(playVideo, 1111);
+        },
+        onLeave: () => {
+            clearTimeout(videoTimeout);
+        },
+        onEnterBack: () => {
+            videoTimeout = setTimeout(playVideo, 1111);
+        },
+        onLeaveBack: () => {
+            clearTimeout(videoTimeout);
         }
     });
 });
-</script>
+</script> 
     
 </body>
 
