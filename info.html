@@ -766,8 +766,7 @@ const backgroundVideo = backgroundVideoContainer.querySelector("video");
 let videoTimeout;
 
 function playVideo(videoSrc) {
-    console.log(`Playing video: ${videoSrc}`);
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1.2 });
 
     clearTimeout(videoTimeout);
 
@@ -777,7 +776,7 @@ function playVideo(videoSrc) {
         backgroundVideo.currentTime = 0;
         backgroundVideo.play();
 
-        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
+        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 2 });
 
         videoTimeout = setTimeout(() => {
             gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
@@ -787,7 +786,7 @@ function playVideo(videoSrc) {
 
 function stopVideo() {
     clearTimeout(videoTimeout);
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.8 });
 }
 
 function createScrollTrigger(triggerId, videoSrc) {
