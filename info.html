@@ -777,11 +777,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 ScrollTrigger.create({
-    trigger: "#online",
+    trigger: "#approach",
     start: "top 50%",
     end: "bottom 50%",
     onEnter: () => {
-        videoElement.querySelector('source').src = "11.mp4";
+        videoElement.querySelector('source').src = "3.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
@@ -789,7 +789,7 @@ ScrollTrigger.create({
         clearTimeout(videoTimeout);
     },
     onEnterBack: () => {
-        videoElement.querySelector('source').src = "11.mp4";
+        videoElement.querySelector('source').src = "3.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
@@ -798,13 +798,13 @@ ScrollTrigger.create({
     }
 });
 
-           
-           ScrollTrigger.create({
-    trigger: "#imago",
+
+ScrollTrigger.create({
+    trigger: "#online",
     start: "top 50%",
     end: "bottom 50%",
     onEnter: () => {
-        videoElement.querySelector('source').src = "7.mp4";
+        videoElement.querySelector('source').src = "4.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
@@ -812,7 +812,30 @@ ScrollTrigger.create({
         clearTimeout(videoTimeout);
     },
     onEnterBack: () => {
-        videoElement.querySelector('source').src = "7.mp4";
+        videoElement.querySelector('source').src = "4.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeaveBack: () => {
+        clearTimeout(videoTimeout);
+    }
+});
+    
+           
+           ScrollTrigger.create({
+    trigger: "#imago",
+    start: "top 50%",
+    end: "bottom 50%",
+    onEnter: () => {
+        videoElement.querySelector('source').src = "5.mp4";
+        videoElement.load();
+        videoTimeout = setTimeout(playVideo, 2222);
+    },
+    onLeave: () => {
+        clearTimeout(videoTimeout);
+    },
+    onEnterBack: () => {
+        videoElement.querySelector('source').src = "5.mp4";
         videoElement.load();
         videoTimeout = setTimeout(playVideo, 2222);
     },
