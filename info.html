@@ -766,7 +766,7 @@ let videoTimeout;
 
 function playVideo(videoSrc) {
     console.log(`Playing video: ${videoSrc}`);
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
 
     clearTimeout(videoTimeout);
 
@@ -776,17 +776,17 @@ function playVideo(videoSrc) {
         backgroundVideo.currentTime = 0;
         backgroundVideo.play();
 
-        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 0.5 });
+        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
 
         videoTimeout = setTimeout(() => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
-        }, 4000);
-    }, 2000);
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+        }, 5555);
+    }, 2222);
 }
 
 function stopVideo() {
     clearTimeout(videoTimeout);
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
 }
 
 function createScrollTrigger(triggerId, videoSrc) {
