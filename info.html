@@ -69,7 +69,6 @@
     height: 100%;
     overflow: hidden;
     z-index: -1;
-    visibility: hidden;
     opacity: 0;
     transition: opacity 2s ease;
 }
@@ -760,29 +759,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-const videoElement = document.getElementById("background-video");
-const backgroundVideoContainer = document.querySelector(".background-video2");
-let videoTimeouts = [];
+           
+           
+   const backgroundVideoContainer = document.querySelector(".background-video2");
+const backgroundVideo = backgroundVideoContainer.querySelector("video");
+let videoTimeout;
 
-function playVideo() {
-    backgroundVideoContainer.style.visibility = "visible";
-    gsap.set(backgroundVideoContainer, { opacity: 0 });
-    videoElement.currentTime = 0; // Start the video from the beginning
-    videoElement.play();
-    gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
+function playVideo(videoSrc) {
+    console.log(`Playing video: ${videoSrc}`);
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
 
-    setTimeout(() => {
-        gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
-            setTimeout(() => {
-                backgroundVideoContainer.style.visibility = "hidden";
-            }, 1111);
-        }});
-    }, 5555);
+    clearTimeout(videoTimeout);
+
+    videoTimeout = setTimeout(() => {
+        backgroundVideo.src = videoSrc;
+        backgroundVideo.load();
+        backgroundVideo.currentTime = 0;
+        backgroundVideo.play();
+
+        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 0.5 });
+
+        videoTimeout = setTimeout(() => {
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
+        }, 4000);
+    }, 2000);
 }
 
-function clearPreviousTimeouts() {
-    videoTimeouts.forEach(timeout => clearTimeout(timeout));
-    videoTimeouts = [];
+function stopVideo() {
+    clearTimeout(videoTimeout);
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.5 });
 }
 
 function createScrollTrigger(triggerId, videoSrc) {
@@ -790,28 +795,10 @@ function createScrollTrigger(triggerId, videoSrc) {
         trigger: triggerId,
         start: "top 50%",
         end: "bottom 50%",
-        onEnter: () => {
-            clearPreviousTimeouts();
-            videoElement.querySelector('source').src = videoSrc;
-            videoElement.load(); // Reload the video source
-            videoElement.currentTime = 0; // Ensure it starts from the beginning
-            const timeout = setTimeout(playVideo, 2222);
-            videoTimeouts.push(timeout);
-        },
-        onLeave: () => {
-            clearPreviousTimeouts();
-        },
-        onEnterBack: () => {
-            clearPreviousTimeouts();
-            videoElement.querySelector('source').src = videoSrc;
-            videoElement.load(); // Reload the video source
-            videoElement.currentTime = 0; // Ensure it starts from the beginning
-            const timeout = setTimeout(playVideo, 2222);
-            videoTimeouts.push(timeout);
-        },
-        onLeaveBack: () => {
-            clearPreviousTimeouts();
-        }
+        onEnter: () => playVideo(videoSrc),
+        onEnterBack: () => playVideo(videoSrc),
+        onLeave: () => stopVideo(),
+        onLeaveBack: () => stopVideo()
     });
 }
 
@@ -819,8 +806,8 @@ createScrollTrigger("#approach", "3.mp4");
 createScrollTrigger("#online", "6.mp4");
 createScrollTrigger("#imago", "5.mp4");
 createScrollTrigger("#expertise", "2.mp4");
-createScrollTrigger("#ketamine", "11.mp4");
-    
+createScrollTrigger("#ketamine", "11.mp4");        
+                
 });
 </script> 
     
