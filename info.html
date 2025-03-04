@@ -755,162 +755,66 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
-
-    const videoElement = document.getElementById("background-video");
-    const backgroundVideoContainer = document.querySelector(".background-video2");
-    let videoTimeout;
-
-    function playVideo() {
-        backgroundVideoContainer.style.visibility = "visible";
-        gsap.set(backgroundVideoContainer, { opacity: 0 });
-        videoElement.currentTime = 0;
-        videoElement.play();
-        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
-
-        setTimeout(() => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
-                setTimeout(() => {
-                    backgroundVideoContainer.style.visibility = "hidden";
-                }, 1111);
-            }});
-        }, 5555);
-    }
-
-ScrollTrigger.create({
-    trigger: "#approach",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "3.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "3.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});
-
-
-ScrollTrigger.create({
-    trigger: "#online",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "6.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "6.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});
     
-           
-           ScrollTrigger.create({
-    trigger: "#imago",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "5.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "5.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});
+const videoElement = document.getElementById("background-video");
+const backgroundVideoContainer = document.querySelector(".background-video2");
+let videoTimeouts = [];
 
-            
-           ScrollTrigger.create({
-    trigger: "#imago",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "5.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "5.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});        
-           ScrollTrigger.create({
-    trigger: "#expertise",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "2.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "2.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});
+function playVideo() {
+    backgroundVideoContainer.style.visibility = "visible";
+    gsap.set(backgroundVideoContainer, { opacity: 0 });
+    videoElement.currentTime = 0;
+    videoElement.play();
+    gsap.to(backgroundVideoContainer, { opacity: 1, duration: 1 });
 
-    
-           ScrollTrigger.create({
-    trigger: "#ketamine",
-    start: "top 50%",
-    end: "bottom 50%",
-    onEnter: () => {
-        videoElement.querySelector('source').src = "11.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeave: () => {
-        clearTimeout(videoTimeout);
-    },
-    onEnterBack: () => {
-        videoElement.querySelector('source').src = "11.mp4";
-        videoElement.load();
-        videoTimeout = setTimeout(playVideo, 2222);
-    },
-    onLeaveBack: () => {
-        clearTimeout(videoTimeout);
-    }
-});
-             
+    setTimeout(() => {
+        gsap.to(backgroundVideoContainer, { opacity: 0, duration: 3, onComplete: () => {
+            setTimeout(() => {
+                backgroundVideoContainer.style.visibility = "hidden";
+            }, 1111);
+        }});
+    }, 5555);
+}
+
+function clearPreviousTimeouts() {
+    videoTimeouts.forEach(timeout => clearTimeout(timeout));
+    videoTimeouts = [];
+}
+
+function createScrollTrigger(triggerId, videoSrc) {
+    ScrollTrigger.create({
+        trigger: triggerId,
+        start: "top 50%",
+        end: "bottom 50%",
+        onEnter: () => {
+            clearPreviousTimeouts();  // Clear timeouts when entering a new section
+            videoElement.querySelector('source').src = videoSrc;
+            videoElement.load();
+            const timeout = setTimeout(playVideo, 2222);
+            videoTimeouts.push(timeout);  // Store the timeout
+        },
+        onLeave: () => {
+            clearPreviousTimeouts();
+        },
+        onEnterBack: () => {
+            clearPreviousTimeouts();
+            videoElement.querySelector('source').src = videoSrc;
+            videoElement.load();
+            const timeout = setTimeout(playVideo, 2222);
+            videoTimeouts.push(timeout);
+        },
+        onLeaveBack: () => {
+            clearPreviousTimeouts();
+        }
+    });
+}
+
+// Create ScrollTriggers for all sections with their respective video sources
+createScrollTrigger("#approach", "3.mp4");
+createScrollTrigger("#online", "6.mp4");
+createScrollTrigger("#imago", "5.mp4");
+createScrollTrigger("#expertise", "2.mp4");
+createScrollTrigger("#ketamine", "11.mp4");
              
 });
 </script> 
