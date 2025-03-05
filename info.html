@@ -503,12 +503,18 @@ p {
                 <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
             </svg>
         </div>
+
+        <!-- Review Quote Section -->
+        <div id="reviewQuote" class="review-quote" style="text-align: center; margin-top: 20px; font-style: italic;">
+            <p><strong id="reviewerName">Loading...</strong></p>
+            <p id="reviewText">Please wait while we load a review.</p>
+        </div>
+
         <p>Neil Clayton consistently receives outstanding 5-star reviews for his exceptional work and unwavering commitment to his practice. His clients applaud his professionalism and the remarkable results he delivers.</p>
         <p>Discover firsthand testimonials that highlight Neil’s expertise and dedication.</p>
         <p><a href="https://www.google.com/maps/place/Psychologist+Neil/@-29.828476,30.9107579,17z/data=!4m8!3m7!1s0x1ef7a977aadb1e81:0xf764b08160009411!8m2!3d-29.8277236!4d30.9129257!9m1!1b1!16s%2Fg%2F11kkyr95cy?hl=en-za&entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Click here to view his Google Reviews</a></p>
     </div>
 </section>
-
 
         <section id="expertise" class="section image-bg"
             <div class="container">
@@ -795,6 +801,34 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.disabled = false;  
     }, 1000);
 });
+
+
+    const reviews = [
+        { name: "Hloni Khumalo", text: "Neil is an amazing psychologist. As a single mom, I struggled with certain topics, but he helped bridge the gap with my son." },
+        { name: "André Pienaar", text: "Neil helped my partner and me reconnect, strengthening our relationship through better communication and understanding." },
+        { name: "Moulana Ahmed Sirajudeen Hoosain", text: "Highly recommended psychologist! He listens attentively and provides approaches that lead to positive solutions." },
+        { name: "Emily Boshoff", text: "Neil helped me through the loss of my mother. He was the only one who truly understood me at the time." },
+        { name: "Priscilla Forbay", text: "Neil gave me strength, hope, and the tools I needed to cope during an emotional time in my life." },
+        { name: "Wendel Naidoo", text: "Neil helped me uncover and process emotions I had blocked for years. His patience and expertise were life-changing." },
+        { name: "Martin Scheepers", text: "I was at my lowest, and Neil helped me make sense of my actions and rebuild my life." },
+        { name: "Don Lelong", text: "Going to Neil was the best decision. He changed my life for the better, and I’m forever grateful." },
+        { name: "Ntombifuthi Nonjola", text: "Neil supported me at my lowest point. His sessions helped me heal, and I’m truly grateful." },
+        { name: "Michelle Poole", text: "Incredible! So empathetic and caring. He truly goes above and beyond for his patients." },
+        { name: "Taryn Newport", text: "Best psychologist around! I couldn't recommend him enough. Truly remarkable." },
+        { name: "Kyle Stevenson", text: "Without a doubt, the best psychologist I've ever worked with. Absolutely phenomenal!" }
+    ];
+
+    function updateReview() {
+        const randomIndex = Math.floor(Math.random() * reviews.length);
+        document.getElementById("reviewerName").textContent = reviews[randomIndex].name;
+        document.getElementById("reviewText").textContent = reviews[randomIndex].text;
+    }
+
+    updateReview();
+
+    setInterval(updateReview, 120000);
+
+
         
 </script>
 </body>
